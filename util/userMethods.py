@@ -7,11 +7,25 @@ def create():
     c.execute("""CREATE TABLE IF NOT EXISTS users(
                 user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT,
-                password TEXT,
+                password TEXT
+                )"""
+                )
+    c.execute("""CREATE TABLE IF NOT EXISTS game_state(
+                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                iq INTEGER,
+                level INTEGER
+                )"""
+                )
+
+    c.execute("""CREATE TABLE IF NOT EXISTS words(
+                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                word TEXT
                 )"""
                 )
     db.commit()
     db.close()
+
+
 
 
 def checkInfo(user, pswd):
