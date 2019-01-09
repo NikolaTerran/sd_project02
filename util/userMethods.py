@@ -1,3 +1,8 @@
+#PythonScript
+#Tianrun Liu, Brian Lee, Tim Marder, Bo Hui Lu
+#Softdev1 pd6
+#Project 2 - The End
+
 import sqlite3
 
 def create():
@@ -24,7 +29,6 @@ def create():
                 )
     db.commit()
     db.close()
-
 
 
 
@@ -73,3 +77,23 @@ def createAccount(user,pswd,passConf):
         db.commit()
         db.close()
         return "Account creation successful"
+
+
+def updateIQ_Level(userId,iq,level):
+
+    '''This method updates the game_state table with given values of IQ and level.
+    These values cannot decrease, thus there will be an error check for that.'''
+
+    db = sqlite3.connect("data/MUD.db")
+    c = db.cursor()
+
+    for i in c.execute("SELECT iq FROM game_state WHERE user_id = ?",(userId,)):
+        if iq < i[0]:
+            return "A lower iq may not be inputted"
+
+        for i in c.execute("SELECT level FROM game_state WHERE user_id = ?",(level,)):
+            if level < i[0]:
+                return "A lower level may not be inputted"
+            return "bleh, will finish later"
+
+    
