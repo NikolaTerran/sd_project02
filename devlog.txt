@@ -40,6 +40,6 @@ Edited our design doc based off comments in class:
 - Bo: Updated site map and component maps to clarify confusing regard "game saved page"
 - Tim: Updated database schema to include more detail + made it look nicer
 - Tianrun:
-- Brian: 
+- Brian: Updated database design and filled out details in various sections
 ==============================================================
 
