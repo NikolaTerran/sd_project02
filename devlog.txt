@@ -1,13 +1,13 @@
-PythonScript
-Tianrun Liu (liuT)
+Team PythonScript
 
-<<INSERT YOUR NAME>>
+Roster:
+Tianrun Liu (tianrunL)
+Tim Marder (timM)
+Bo Lu (boL)
+Brian Lee (brianL)
 
 pd 6
 ---------------------
-
-<<INSERT DESCRIPTION>>
-
 
  ______   ______   __   __   __       ______   _______
 /_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
@@ -19,27 +19,27 @@ pd 6
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-liuT -- 2019-1-3 4:05 AM
+tianrunL -- 2019-1-3 4:05 AM
 --------------------------------------------------------------
 Created devlog and DESIGN_DOC
 ==============================================================
 
-liuT -- 2019-1-4 12:32 AM
+tianrunL -- 2019-1-4 12:32 AM
 --------------------------------------------------------------
 Created try.html to test the difficulty of game GUI design.
 ==============================================================
 
-liuT, marderT, luB, leeB -- 2019-1-7 12:30 AM
+tianrunL, timM, boL, brianL -- 2019-1-7 12:30 AM
 --------------------------------------------------------------
 Finalized our idea and finished up design doc.
 ==============================================================
 
-liuT, marderT, luB, leeB -- 2019-1-8 11:30 PM
+tianrunL, timM, boL, brianL -- 2019-1-8 11:30 PM
 --------------------------------------------------------------
 Edited our design doc based off comments in class:
 - Bo: Updated site map and component maps to clarify confusing regard "game saved page"
 - Tim: Updated database schema to include more detail + made it look nicer
 - Tianrun:
-- Brian: 
+- Brian: Updated database design and filled out details in various sections
 ==============================================================
 
