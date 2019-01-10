@@ -1,0 +1,82 @@
+<!DOCTYPE = html>
+
+<html>
+	<head>
+	
+	</head>
+	
+	<body>
+	<ul>
+		<li>  | </li>
+		<li>--@--</li>
+		<li>  | </li>
+	</ul>
+	
+	<p id="prompt">
+	</p>
+	
+	<input id="cmd" type="text" value="type your commands here"></input>
+	
+	</body>
+	
+	<footer>
+	<script>
+	var user_input = "";
+	
+	var select_prompt = document.getElementById("prompt");
+	
+	var get_input = document.getElementById("cmd");
+	get_input.addEventListener("keypress",return_input);
+	
+	function return_input(){var x = event.keyCode;
+		console.log(x);
+		if(x == 13){
+			//select_prompt.innerHTML = get_input.value;
+			user_input = get_input.value;
+			get_input.value = "";	
+			select_prompt.innerHTML = "you walked toward west.";
+			process_command;
+		}	
+	}
+	
+	function process_command(){
+		if(!user_input.localeCompare("west")){}
+		else if(user_input == "west"){
+			select_prompt.innerHTML = "you walked toward west.";
+			//user_input == "";
+		}
+		else if(!user_input.localeCompare("west")){
+			select_prompt.innerHTML = "you walked toward east.";
+			//user_input == "";
+		}
+			else if(!user_input.localeCompare("west")){
+			select_prompt.innerHTML = "you walked toward south.";
+			//user_input == "";
+		}
+			else if(!user_input.localeCompare("west")){
+			select_prompt.innerHTML = "you walked toward north.";
+			//user_input == "";
+		}
+			else if(!user_input.localeCompare("west")){
+			select_prompt.innerHTML = "not implemented";
+			//user_input == "";
+		}else{
+			select_prompt.innerHTML = "invalid command.";
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</script>
+	
+	</footer>
+</html>
