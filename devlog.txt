@@ -43,3 +43,7 @@ Edited our design doc based off comments in class:
 - Brian: Updated database design and filled out details in various sections
 ==============================================================
 
+leeB -- 2019-1-9 12:32 PM
+--------------------------------------------------------------
+Set up skeleton of flask app and templates
+==============================================================
