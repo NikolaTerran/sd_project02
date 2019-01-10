@@ -30,8 +30,6 @@ def create():
     db.commit()
     db.close()
 
-
-
 def checkInfo(user, pswd):
 
     '''This method checks if the user and password combination
