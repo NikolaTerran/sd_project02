@@ -12,21 +12,29 @@
 		<li>  | </li>
 	</ul>
 	
-	<p id="prompt">
-	</p>
+	<ul id="prompt">
+		<li></li>
+	</ul>
 	
-	<input id="cmd" type="text" value="type your commands here"></input>
+	<input id="cmd" type="text" value="type your commands here" ></input>
 	
 	</body>
 	
 	<footer>
 	<script>
+	var text_limit = 0;
+	var last_node;
+	var node;
+	
 	var user_input = "";
 	
 	var select_prompt = document.getElementById("prompt");
 	
 	var get_input = document.getElementById("cmd");
 	get_input.addEventListener("keypress",return_input);
+	get_input.addEventListener("click",function(){
+		get_input.value = "";
+	});
 	
 	function return_input(){var x = event.keyCode;
 		console.log(x);
@@ -34,34 +42,52 @@
 			//select_prompt.innerHTML = get_input.value;
 			user_input = get_input.value;
 			get_input.value = "";	
-			select_prompt.innerHTML = "you walked toward west.";
-			process_command;
+			//select_prompt.innerHTML = "you walked toward west.";
+			process_command();
 		}	
 	}
 	
 	function process_command(){
-		if(!user_input.localeCompare("west")){}
-		else if(user_input == "west"){
-			select_prompt.innerHTML = "you walked toward west.";
-			//user_input == "";
+		if(!user_input.localeCompare("west")){
+			check_limit("you walked toward west.");
 		}
-		else if(!user_input.localeCompare("west")){
-			select_prompt.innerHTML = "you walked toward east.";
-			//user_input == "";
+		else if(!user_input.localeCompare("east")){
+			check_limit("you walked toward east.");
 		}
-			else if(!user_input.localeCompare("west")){
-			select_prompt.innerHTML = "you walked toward south.";
-			//user_input == "";
+			else if(!user_input.localeCompare("south")){
+			check_limit("you walked toward south.");
 		}
-			else if(!user_input.localeCompare("west")){
-			select_prompt.innerHTML = "you walked toward north.";
-			//user_input == "";
+			else if(!user_input.localeCompare("north")){
+			check_limit("you walked toward north.");
 		}
-			else if(!user_input.localeCompare("west")){
-			select_prompt.innerHTML = "not implemented";
-			//user_input == "";
+			else if(!user_input.localeCompare("kick")){
+			check_limit("you kicked.");
 		}else{
-			select_prompt.innerHTML = "invalid command.";
+			check_limit("invalid command.");
+		}
+	}
+	
+	function check_limit(say_what){
+		if(text_limit == 0){
+			var new_li = document.createElement("LI"); 
+			var textnode = 		
+			document.createTextNode(say_what);
+			last_node = textnode;
+			new_li.appendChild(textnode);
+			select_prompt.appendChild(textnode);
+		}else if(text_limit == 10){
+			var creat_li = document.createElement("LI"); 
+			var textnode = document.createTextNode(say_what);
+			select_prompt.removeChile(last_node);
+			last_node = textnode;
+			new_li.appendChild(textnode);
+			select_prompt.appendChild(textnode);
+		}else{
+		var creat_li = document.createElement("LI"); 
+			var textnode = document.createTextNode(say_what);
+			new_li.appendChild(textnode);
+			select_prompt.appendChild(textnode);
+			text_limit++;
 		}
 	}
 	
