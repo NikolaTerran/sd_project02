@@ -41,16 +41,16 @@ def checkInfo(user, pswd):
     for i in c.execute("SELECT password FROM users WHERE username = ?",(user,)):
          #If user is found and passwords match
         if i[0] == pswd:
-            return "Login Successful"
+            return (True, "Login Successful")
          #If passwords don't match
         else:
             db.close()
-            return "Incorrect Password"
+            return (False, "Incorrect Password")
     else:
         #If the user doesn't exist in the table
         db.commit()
         db.close()
-        return "User not found"
+        return (False, "Username not found")
 
 def createAccount(user,pswd,passConf):
 
@@ -63,19 +63,18 @@ def createAccount(user,pswd,passConf):
     #checks if the username already exists
     for i in c.execute("SELECT username FROM users WHERE username = ?",(user,)):
         db.close()
-        return "Username already exists"
+        return (False, "Username already exists")
     else:
         #if password confirmation fails
         if pswd != passConf:
             db.close()
-            return "Passwords do not match"
+            return (False, "Passwords do not match")
         #if password confirmation succeeds add the user to the database
         command = "INSERT INTO users(username, password) VALUES( ?, ?)"
         c.execute(command, (user, pswd))
         db.commit()
         db.close()
-        return "Account creation successful"
-
+        return (True, "Account creation successful")
 
 def updateIQ_Level(userId,iq,level):
 
