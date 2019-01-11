@@ -15,12 +15,19 @@ def login():
         password = request.form['password']
         result = userMethods.checkInfo(username, password)
         print(result)
-    return render_template("login.html")
+    else:
+        return render_template("login.html")
 
 @app.route("/register", methods = ["POST", "GET"])
 def register():
+    if (request.method == "POST"):
+        username = request.form['username']
+        password = request.form['password']
+        passconf = request.form['passconf']
+        result = userMethods.createAccount(username, password, passconf)
+        print(result)
+        return redirect('main')
     return render_template("register.html")
 
-userMethods.create()
 app.debug=True
 app.run()
