@@ -6,6 +6,15 @@
         <title> {% block title %} Mykolyk's Ultimate Dictionary {% endblock %} </title>
     </head>
     <body>
+        <h1>Mykolyk's Ultimate Dictionary</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         {% block body %}
         bar
         {% endblock %}
