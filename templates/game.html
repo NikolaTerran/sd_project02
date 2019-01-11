@@ -13,7 +13,6 @@
 	</ul>
 	
 	<ul id="prompt">
-		<li></li>
 	</ul>
 	
 	<input id="cmd" type="text" value="type your commands here" ></input>
@@ -22,8 +21,15 @@
 	
 	<footer>
 	<script>
+	var interact = "";
+	var plot_counter = 0;
+	//shortened console log
+	function cl(x){
+		console.log(x);
+	}
+	
 	var text_limit = 0;
-	var last_node;
+	//var last_node;
 	var node;
 	
 	var user_input = "";
@@ -37,62 +43,71 @@
 	});
 	
 	function return_input(){var x = event.keyCode;
-		console.log(x);
 		if(x == 13){
-			//select_prompt.innerHTML = get_input.value;
 			user_input = get_input.value;
 			get_input.value = "";	
-			//select_prompt.innerHTML = "you walked toward west.";
 			process_command();
 		}	
 	}
 	
 	function process_command(){
 		if(!user_input.localeCompare("west")){
-			check_limit("you walked toward west.");
+			print("you walked toward west.");
+			plot_check();
 		}
 		else if(!user_input.localeCompare("east")){
-			check_limit("you walked toward east.");
+			print("you walked toward east.");
+			plot_check();
 		}
 			else if(!user_input.localeCompare("south")){
-			check_limit("you walked toward south.");
+			print("you walked toward south.");
+			plot_check();
 		}
 			else if(!user_input.localeCompare("north")){
-			check_limit("you walked toward north.");
+			print("you walked toward north.");
+			plot_check();
 		}
 			else if(!user_input.localeCompare("kick")){
-			check_limit("you kicked.");
+			print("you kicked.");
+			interact = "kick";
+			plot_check("kick");
 		}else{
-			check_limit("invalid command.");
+			print("invalid command.");
 		}
 	}
 	
-	function check_limit(say_what){
-		if(text_limit == 0){
+	function print(say_what){
+		if(text_limit == 10){
 			var new_li = document.createElement("LI"); 
-			var textnode = 		
-			document.createTextNode(say_what);
-			last_node = textnode;
-			new_li.appendChild(textnode);
-			select_prompt.appendChild(textnode);
-		}else if(text_limit == 10){
-			var creat_li = document.createElement("LI"); 
 			var textnode = document.createTextNode(say_what);
-			select_prompt.removeChile(last_node);
-			last_node = textnode;
+			select_prompt.removeChild(select_prompt.childNodes[0]);
 			new_li.appendChild(textnode);
-			select_prompt.appendChild(textnode);
+			select_prompt.appendChild(new_li);
+
 		}else{
-		var creat_li = document.createElement("LI"); 
+			var new_li = document.createElement("LI"); 
 			var textnode = document.createTextNode(say_what);
 			new_li.appendChild(textnode);
-			select_prompt.appendChild(textnode);
+			select_prompt.appendChild(new_li);
 			text_limit++;
 		}
 	}
 	
+	function plot_check(){
+		switch(plot_counter){
+			case 0: print("You have descended into the dungeon, there is an exit door on the east, type \"east\" to go through the exit.");
+			plot_counter++;
+			break;
+			case 1: print("The door is locked, maybe you can try kicking it real hard by typing \"kick\"");
+			plot_counter++;
+			case 2:print("There is an old man sitting in the cornor. \"Ho, ...");
+			break; 
+			
 	
-	
+		}
+	}
+	//onload
+	window.onload = plot_check();
 	
 	
 	
