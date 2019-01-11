@@ -21,6 +21,5 @@ def login():
 def register():
     return render_template("register.html")
 
-userMethods.create()
 app.debug=True
 app.run()
