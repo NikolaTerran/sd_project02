@@ -5,9 +5,6 @@
 #Brian Lee
 #SoftDev1 Pd06
 
-import json
-import urllib
-import random
 import os
 import ssl
 
@@ -70,10 +67,13 @@ def logout():
         flash("You must be logged in to logout.", 'danger')
         return redirect(url_for("login"))
 
-
 @app.route("/profile", methods=["POST", "GET"])
 def profile():
     return render_template("profile.html", title = "Mykolyk's Ultimate Dictionary", user = session.get('username'))
 
+@app.route("/add/<username>/<word>")
+def add_word(username, word):
+    pass
+        
 app.debug=True
 app.run()
