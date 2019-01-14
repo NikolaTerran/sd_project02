@@ -64,10 +64,10 @@ def register():
 def logout():
     try:
         session.pop('username')
-        flash("You have successfully logged out")
+        flash("You have successfully logged out", 'success')
         return redirect(url_for("login"))
     except:
-        flash("You have successfully logged out")
+        flash("You must be logged in to logout.", 'danger')
         return redirect(url_for("login"))
 
 
