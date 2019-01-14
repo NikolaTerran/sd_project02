@@ -75,22 +75,33 @@ def createAccount(user,pswd,passConf):
         db.commit()
         db.close()
         return (True, "Account creation successful")
-
+'''
 def updateIQ_Level(userId,iq,level):
 
-    '''This method updates the game_state table with given values of IQ and level.
-    These values cannot decrease, thus there will be an error check for that.'''
+    'This method updates the game_state table with given values of IQ and level.
+    These values cannot decrease, thus there will be an error check for that.'
 
     db = sqlite3.connect("data/MUD.db")
     c = db.cursor()
+    command = "UPDATE game_state(iq, "
 
+    #checks if iq and level are below the current iq and level - which we don't want
     for i in c.execute("SELECT iq FROM game_state WHERE user_id = ?",(userId,)):
         if iq < i[0]:
-            return "A lower iq may not be inputted"
+            db.close()
+            return (False, "A lower iq may not be inputted")
+        else:
+            return "bleh"
 
-        for i in c.execute("SELECT level FROM game_state WHERE user_id = ?",(level,)):
-            if level < i[0]:
-                return "A lower level may not be inputted"
-            return "bleh, will finish later"
+    for i in c.execute("SELECT level FROM game_state WHERE user_id = ?",(userId,)):
+        if level < i[0]:
+            db.close()
+            return (False, "A lower level may not be inputted")
+                            
+        else:
+            return "bleh"
+'''
+    
+
 
     
