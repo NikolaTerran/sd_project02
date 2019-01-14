@@ -11,13 +11,19 @@
 [Our Video Demo Here](<>)
 
 ##HOW-TO-RUN:
-1.Pip install flask, pip install wheel
+
+1. Pip install flask, pip install wheel
 
 2. Git clone < use link below >
 ...SSH LINK: git@github.com:TianrunLiu/sd_project02.git
 ...HTTPS LINK: https://github.com/TianrunLiu/sd_project02.git
 
-3.
+3. python app.py
+
+
+##API:
+
+1. <...>
 
 
 
