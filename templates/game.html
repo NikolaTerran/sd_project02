@@ -2,7 +2,19 @@
 
 <html>
 	<head>
+	<script>
+const Http = new XMLHttpRequest();
+const url="https://wordsapiv1.p.rapidapi.com/words/?random=true";
 
+//var header = [];
+//header.
+
+Http.open("GET", url);
+Http.send();
+Http.onreadystatechange=(e)=>{
+console.log(Http.responseText)
+}
+</script>
 	</head>
 
 	<body>
@@ -13,7 +25,6 @@
 	</ul>
 
 	<ul id="prompt">
-		<li></li>
 	</ul>
 
 	<input id="cmd" type="text" value="type your commands here" ></input>
@@ -23,8 +34,9 @@
 	<footer>
 	<script>
 	var text_limit = 0;
-	var last_node;
-	var node;
+
+	var plot_point = 0;
+	
 
 	var user_input = "";
 
@@ -49,53 +61,59 @@
 
 	function process_command(){
 		if(!user_input.localeCompare("west")){
-			check_limit("you walked toward west.");
+			print("you walked toward west.");
 		}
 		else if(!user_input.localeCompare("east")){
-			check_limit("you walked toward east.");
+			print("you walked toward east.");
 		}
 			else if(!user_input.localeCompare("south")){
-			check_limit("you walked toward south.");
+			print("you walked toward south.");
 		}
 			else if(!user_input.localeCompare("north")){
-			check_limit("you walked toward north.");
+			print("you walked toward north.");
 		}
 			else if(!user_input.localeCompare("kick")){
-			check_limit("you kicked.");
+			print("you kicked.");
+			api_request();
 		}else{
-			check_limit("invalid command.");
+			print("invalid command.");
 		}
 	}
 
-	function check_limit(say_what){
-		if(text_limit == 0){
+	function print(say_what){
+		if(text_limit == 10){
 			var new_li = document.createElement("LI");
-			var textnode =
-			document.createTextNode(say_what);
-			last_node = textnode;
-			new_li.appendChild(textnode);
-			select_prompt.appendChild(textnode);
-		}else if(text_limit == 10){
-			var creat_li = document.createElement("LI");
 			var textnode = document.createTextNode(say_what);
 			select_prompt.removeChile(last_node);
-			last_node = textnode;
 			new_li.appendChild(textnode);
-			select_prompt.appendChild(textnode);
+			select_prompt.appendChild(new_li);
 		}else{
-		var creat_li = document.createElement("LI");
+		var new_li = document.createElement("LI");
 			var textnode = document.createTextNode(say_what);
 			new_li.appendChild(textnode);
-			select_prompt.appendChild(textnode);
+			select_prompt.appendChild(new_li);
 			text_limit++;
 		}
 	}
+	
+	function plot(input){
+		var locale = plot_point;
+		switch(locale){
+			case 0: print("You descended into the dungeon, there is an exit to the east.");
+		}
+	}
+	
+	window.onload = plot("hi");
 
+	function api_request(){
+	var 
+unirest.get("https://wordsapiv1.p.rapidapi.com/words/?random=true")
+.header("X-RapidAPI-Key", "H4M1sxY4O1msh9v8MrcQtN3bxkdXp123G2cjsnp44qxdKtuXnu")
+.end(function (result) {
+  console.log(result.status, result.headers, result.body);
+});
 
-
-
-
-
+}
 
 
 

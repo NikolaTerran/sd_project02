@@ -15,6 +15,7 @@ from flask import Flask, render_template, session, request, url_for, redirect, f
 
 from util import userMethods
 
+
 if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
     getattr(ssl, '_create_unverified_context', None)):
     ssl._create_default_https_context = ssl._create_unverified_context
@@ -79,6 +80,10 @@ def logout():
 @app.route("/profile", methods=["POST", "GET"])
 def profile():
     return render_template("profile.html", title = "Mykolyk's Ultimate Dictionary", user = session.get('username'))
+    
+@app.route("/game", methods=["POST","GET"])
+def game():
+	return render_template("game.html");
 
 app.debug=True
 app.run()
