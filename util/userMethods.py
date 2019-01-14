@@ -34,6 +34,8 @@ def checkInfo(user, pswd):
 
     '''This method checks if the user and password combination
     is a valid one, and returns error messages accordingly'''
+    if not (user and pswd):
+        return (False, "One or more fields missing")
 
     db = sqlite3.connect("data/MUD.db")
     c = db.cursor()
@@ -57,6 +59,8 @@ def createAccount(user,pswd,passConf):
     '''This method checks the user's input when creating an acc
     to make sure they did not err anywhere in the process. If everything
     is correct, then the account will be created.'''
+    if not (user and pswd and passConf):
+        return (False, "One or more fields missing")
 
     db = sqlite3.connect("data/MUD.db")
     c = db.cursor()
