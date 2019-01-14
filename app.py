@@ -22,48 +22,43 @@ if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
-
-
 @app.route('/')
 def main():
-    if session.get('username'):
+    if 'username' in session:
         return redirect(url_for("profile"))
     else:
         return redirect(url_for("login"))
 
-
-@app.route("/login", methods = ["POST", "GET"])
+@app.route('/login', methods = ["POST", "GET"])
 def login():
-    return render_template("login.html")
-
-
-@app.route("/auth", methods = ["POST"])
-def auth():
-    if userMethods.checkInfo(request.form['username'], request.form['password']):
-        session['username'] = request.form['username']
-        flash("Welcome " + session['username'] + "! You have successfully logged in.")
-        return redirect(url_for("profile"))
+    if (request.method == "POST"):
+        username = request.form['username']
+        password = request.form['password']
+        success, msg = userMethods.checkInfo(username, password)
+        if success:
+            flash(msg, 'success')
+            session['username'] = username
+            return redirect(url_for('main'))
+        else:
+            flash(msg, 'danger')
+            return render_template("login.html")
     else:
-        flash("Your login credentials were incorrect.")
-        return redirect(url_for("login"))
+        return render_template("login.html")
 
-
-@app.route("/register", methods = ["POST", "GET"])
+@app.route('/register', methods = ["POST", "GET"])
 def register():
+    if (request.method == "POST"):
+        username = request.form['username']
+        password = request.form['password']
+        passconf = request.form['passconf']
+        success, msg = userMethods.createAccount(username, password, passconf)
+        if success:
+            flash(msg, 'success')
+            return redirect(url_for('login'))
+        else:
+            flash(msg, 'danger')
+            return render_template("register.html")
     return render_template("register.html")
-
-
-@app.route("/regauth", methods = ["POST"])
-def regauth():
-    if not request.form['password'] == request.form['password2']:
-        flash("Your passwords do not match")
-        return redirect(url_for("register"))
-    if userMethods.createAccount(request.form['username'], request.form['password'], request.form['password2']):
-        flash("You have successfully created an account")
-        return redirect(url_for("login"))
-    flash("The username you entered is taken.")
-    return redirect(url_for("register"))
-
 
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
