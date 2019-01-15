@@ -3,6 +3,7 @@
 <html>
 	<head>
 	<script>
+	/*
 const Http = new XMLHttpRequest();
 const url="https://wordsapiv1.p.rapidapi.com/words/?random=true";
 
@@ -14,14 +15,22 @@ Http.send();
 Http.onreadystatechange=(e)=>{
 console.log(Http.responseText)
 }
+*/
 </script>
 	</head>
 
 	<body>
-	<ul>
-		<li>  | </li>
-		<li>--@--</li>
-		<li>  | </li>
+	<ul id = "map">
+		<li id = "a"></li>
+		<li id = "b"></li>
+		<li id = "c"></li>
+		<li id = "d"></li>
+		<li id = "e">@ --</li>
+		<li id = "f"></li>
+		<li id = "g"></li>
+		<li id = "h"></li>
+		<li id = "i"></li>
+		<li id = "j"></li>
 	</ul>
 
 	<ul id="prompt">
@@ -48,7 +57,8 @@ console.log(Http.responseText)
 		get_input.value = "";
 	});
 
-	function return_input(){var x = event.keyCode;
+	function return_input(event){
+		var x = event.keyCode;
 		console.log(x);
 		if(x == 13){
 			//select_prompt.innerHTML = get_input.value;
@@ -62,18 +72,23 @@ console.log(Http.responseText)
 	function process_command(){
 		if(!user_input.localeCompare("west")){
 			print("you walked toward west.");
+			plot("west");
 		}
 		else if(!user_input.localeCompare("east")){
 			print("you walked toward east.");
+			plot("east");
 		}
 			else if(!user_input.localeCompare("south")){
 			print("you walked toward south.");
+			plot("south");
 		}
 			else if(!user_input.localeCompare("north")){
 			print("you walked toward north.");
+			plot("north");
 		}
 			else if(!user_input.localeCompare("kick")){
 			print("you kicked.");
+			plot("kick");
 			api_request();
 		}else{
 			print("invalid command.");
@@ -84,7 +99,7 @@ console.log(Http.responseText)
 		if(text_limit == 10){
 			var new_li = document.createElement("LI");
 			var textnode = document.createTextNode(say_what);
-			select_prompt.removeChile(last_node);
+			select_prompt.removeChild(select_prompt.childNodes[0]);
 			new_li.appendChild(textnode);
 			select_prompt.appendChild(new_li);
 		}else{
@@ -96,15 +111,71 @@ console.log(Http.responseText)
 		}
 	}
 	
+	
+	var plot_check = 0;
 	function plot(input){
 		var locale = plot_point;
 		switch(locale){
-			case 0: print("You descended into the dungeon, there is an exit to the east.");
+			case 0: print("You descended into the dungeon, the first level is a tutorial level, where you'll get familiar with the game. There is an exit to the east, type \"east\" in the command prompt to get out of the room.");
+				plot_point++;
+			case 1: if(!input.localeCompare("east") && plot_check == 0){
+				   print("There is a locked door preventing you exiting the room, maybe you can try to kick it really hard. Typing \"kick\" in the command prompt to kick.");
+				   break;
+				}
+				else if(!input.localeCompare("west") ||
+				!input.localeCompare("north") ||
+				!input.localeCompare("south")){
+				   print("Nothing interesting was found at this corner");break;
+				}else if(!input.localeCompare("kick")){
+				  print("Whammm! the door opens, you can proceed to the next room by type \"east\" again in the command prompt.");
+				  plot_check = 1;
+				}else if(!input.localeCompare("east") && plot_check == 1){
+				   print("There is an old man sitting against the northern wall, you can try to talk to him by type \"chat\" in the command prompt");
+				   plot_check = 0;
+				   plot_point++;
+				}
+				break;
+			case 2: break;
+			case 3: break;
+			case 4: break;
 		}
 	}
 	
 	window.onload = plot("hi");
 
+	//1 == .
+	//2 == +
+	//3 == -;
+	
+	var map = [[1,0,0,0,0,0,0,0,0,0],
+		   [1,1,1,0,0,0,0,0,0,0],
+		   [0,0,1,0,0,0,0,0,0,0],
+		   [0,0,1,0,0,0,0,0,0,0],
+		   [1,1,1,1,1,1,1,1,0,0],
+		   [0,0,0,0,0,0,1,0,0,0],
+		   [0,0,0,0,0,0,1,0,0,0],
+		   [0,0,0,0,0,0,1,0,0,0],
+		   [0,0,0,1,1,1,1,0,0,0],
+		   [0,0,0,0,0,0,0,0,0,0]];
+		   
+	//https://medium.freecodecamp.org/how-to-make-your-own-procedural-dungeon-map-generator-using-the-random-walk-algorithm-e0085c8aa9a;	   
+/*	
+	function render_map(){
+ 	   var mx = 0;
+ 	   var my = 0;
+ 	   while( x <= 10){
+ 	   	while(y <= 10){
+ 	   		if(map[x][y] == 0){
+ 	   			if(x == 0){
+ 	   			    var get_line = 
+ 	   			}
+ 	   		}
+ 	   	}
+ 	   }	
+	}
+*/	
+	
+/*
 	function api_request(){
 	var 
 unirest.get("https://wordsapiv1.p.rapidapi.com/words/?random=true")
@@ -115,7 +186,7 @@ unirest.get("https://wordsapiv1.p.rapidapi.com/words/?random=true")
 
 }
 
-
+*/
 
 
 
