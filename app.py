@@ -48,8 +48,8 @@ def register():
     if (request.method == "POST"):
         username = request.form['username']
         password = request.form['password']
-        passconf = request.form['passconf']
-        success, msg = userMethods.createAccount(username, password, passconf)
+        passConf = request.form['passConf']
+        success, msg = userMethods.createAccount(username, password, passConf)
         if success:
             flash(msg, 'success')
             return redirect(url_for('login'))
@@ -71,7 +71,7 @@ def logout():
 @app.route("/profile", methods=["POST", "GET"])
 def profile():
     return render_template("profile.html", title = "Mykolyk's Ultimate Dictionary", user = session.get('username'))
-    
+
 @app.route("/game", methods=["POST","GET"])
 def game():
 	return render_template("game.html");
@@ -79,6 +79,6 @@ def game():
 @app.route("/add/<username>/<word>")
 def add_word(username, word):
     pass
-        
+
 app.debug=True
 app.run()
