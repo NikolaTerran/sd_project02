@@ -14,7 +14,7 @@ def random_word():
     req = urllib.request.Request(URL, headers=key_head)
     try:
         resp = urllib.request.urlopen(req)
-        return resp
+        return json_load(resp)
     except urllib.error.HTTPError as e:
         return e
 
