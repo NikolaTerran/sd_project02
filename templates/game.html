@@ -5,9 +5,11 @@
 
 <style>
 .terminal {
-    background-color: black;
+    background-color: #303133;
     color: #98fb98;
     font-family: Courier New, Courier, monospace;
+    border-style: solid;
+    border-color: black;
 }
 </style>
 
@@ -15,13 +17,9 @@
 
 {% endblock %}
 
-
 {% block body %}
-
-<div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%)">
-
-    <div class="row">
-
+<div class="container">
+    <div class="row m-4">
         <div class="col">
             <ul class="list-unstyled terminal" id="map_id"></ul>
             <input id="cmd" type="text" value="type your commands here">
@@ -29,8 +27,7 @@
 
         <div class="col-0.5">
         </div>
-        
-        <div class="col terminal" style="max-height: 290px; overflow: auto;" id="prompt_wrapper">
+        <div class="col terminal text-left" style="max-height: 290px; overflow: auto;" id="prompt_wrapper">
             <ul class="list-unstyled" id="prompt"></ul>
         </div>
 

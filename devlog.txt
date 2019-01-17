@@ -160,6 +160,12 @@ Fixed movement handling code
 Prompt now doesn't go wild and stretch things around when adding text
 ==============================================================
 
+brianL -- 2019-1-17 12:18AM
+--------------------------------------------------------------
+Prettier CSS
+Login check on game
+==============================================================
+
 timM -- 2019-1-10 12:22 PM
 --------------------------------------------------------------
 - Added to app.py and HTML pages to allow users to access the
