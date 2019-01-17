@@ -145,6 +145,7 @@ var count = dict[0].length;
         }
         else if(user_input === "down"){
         	if(cv == 8){
+        		print("you walked down stairs.");	
         		ran_gen();
         	}else{
         		print("you can't go down from here!");
@@ -377,20 +378,105 @@ function ran_gen(){
 	cv = 4;
 	px = Math.floor(Math.random() * max_x);
 	py = Math.floor(Math.random() * max_y);
+	var pxc = px;
+	var pyc = py;
 	map[px][py] = 1;
 	
-	dir = ran_dir();
-	switch(dir){
-		case 0:  
-		case 1:
-		case 2:
-		case 3:
-	}	
+	
+	
+	var vt = 1;
+	
+	var step = 1;
+	var cd = 0;
+	
+	var ray = [];
+						ray[0] = 0;
+						ray[1] = 0;
+						ray[2] = 0;
+						ray[3] = 0;
+					
+					if((pxc + 1) > (max_x - 1) && map[pxc + 1][pyc] != 0){
+						ray[0] = 1;
+					}
+					
+					if((pxc - 1) < 0 && map[pxc - 1][pyc] != 0){
+						ray[1] = 1;
+					}
+					
+					if((pyc + 1) > (max_y - 1) && map[pxc][pyc + 1] != 0){
+						ray[1] = 1;
+					}
+					
+					if((pyc - 1) < 0 && map[pxc][pyc - 1] != 0){
+						ray[1] = 1;
+					}
+					
+	go(pxc,pyc,ray[0],ray[1],ray[2],ray[3],step,vt);
+		
+	render_map();
+	
+	
+
+	
+	
+}
+
+function go(x,y,e,w,s,n,step,vt){
+
+		dir = ran_dir();
+		switch(dir){
+				case 0: if(n != 1){pxc--;} break;  
+				case 1: if(s != 1){pxc++;} break;
+				case 2: if(w != 1){pyc--; vt = 0;} break;
+				case 3: if(e != 1){pyc++; vt = 0;} break;
+		}
+	
+		if(map[pxc][pyc] == 0){
+		if(step == 0){
+			map[pxc][pyc] = 14;
+		}else if(vt == 0){
+			map[pxc][pyc] = 13;
+		}else if(vt == 1){
+			map[pxc][pyc] = 15;
+			}
+		}
+	
+					var fail = [];
+						fail[0] = 0;
+						fail[1] = 0;
+						fail[2] = 0;
+						fail[3] = 0;
+					
+					if((pxc + 1) < max_x && map[pxc + 1][pyc] != 0){
+						fail[0] = 1;
+					}
+					
+					if((pxc - 1) >= 0 && map[pxc - 1][pyc] != 0){
+						fail[1] = 1;
+					}
+					
+					if((pyc + 1) < max_y && map[pxc][pyc + 1] != 0){
+						fail[1] = 1;
+					}
+					
+					if((pyc - 1) >= 0 && map[pxc][pyc - 1] != 0){
+						fail[1] = 1;
+					}
+	
+		if(fail > 3){
+			
+		}else{
+			go(pxc,pyc,fail[0],fail[1],fail[2],fail[3]);
+		}
 }
 
 function ran_dir(){
 	var dir = Math.floor(Math.random() * 4);
 	return dir;
+}
+
+function ran_mon(){
+
 }
 
 //0 == space
@@ -420,20 +506,20 @@ function ran_dir(){
 
 
 var map = [[17,13,14,13,17,13,14,0 ,0 ,0 ],
-           [0 ,0 ,15,0 ,0 ,0 ,12,0 ,0 ,0 ],
+           [0 ,0 ,15,0 ,0 ,0 ,15,0 ,0 ,0 ],
            [0 ,0 ,14,0 ,0 ,0 ,18,0 ,0 ,0 ],
            [0 ,0 ,15,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
            [1 ,2 ,16,13,14,13,17,13,14,0 ],
-           [0 ,0 ,0 ,0 ,0 ,0 ,15,0 ,0 ,0 ],
-           [0 ,0 ,0 ,0 ,17,12,14,0 ,0 ,0 ],
+           [15 ,0 ,0 ,0 ,0 ,0 ,15,0 ,0 ,0 ],
+           [18,0 ,0 ,0 ,17,12,14,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]];
 
 var mon = [[0,0,4],
-	   [0,4,4],
-	   [4,6,4],
-	   [6,2,4]];
+		   [0,4,4],
+		   [4,6,4],
+		   [6,2,4]];
 
 //max map dimension		   
 var max_y = map.length;
