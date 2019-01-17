@@ -125,3 +125,9 @@ brianL -- 2019-1-16 12:00PM
 Fixed movement handling code
 Prompt now doesn't go wild and stretch things around when adding text
 ==============================================================
+
+brianL -- 2019-1-17 12:18AM
+--------------------------------------------------------------
+Prettier CSS
+Login check on game
+==============================================================

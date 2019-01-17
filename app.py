@@ -6,16 +6,10 @@
 #SoftDev1 Pd06
 
 import os
-import ssl
 
 from flask import Flask, render_template, session, request, url_for, redirect, flash
 
 from util import userMethods
-
-
-if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
-    getattr(ssl, '_create_unverified_context', None)):
-    ssl._create_default_https_context = ssl._create_unverified_context
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -23,7 +17,7 @@ app.secret_key = os.urandom(32)
 @app.route('/')
 def main():
     if 'username' in session:
-        return redirect(url_for("profile"))
+        return render_template("profile.html", user = session.get('username'))
     else:
         return redirect(url_for("login"))
 
@@ -63,22 +57,17 @@ def logout():
     try:
         session.pop('username')
         flash("You have successfully logged out", 'success')
-        return redirect(url_for("login"))
     except:
         flash("You must be logged in to logout.", 'danger')
-        return redirect(url_for("login"))
+    return redirect(url_for("login"))
 
-@app.route("/profile", methods=["POST", "GET"])
-def profile():
-    return render_template("profile.html", title = "Mykolyk's Ultimate Dictionary", user = session.get('username'))
-
-@app.route("/game", methods=["POST","GET"])
+@app.route("/game", methods=["GET"])
 def game():
-	return render_template("game.html");
-
-@app.route("/add/<username>/<word>")
-def add_word(username, word):
-    pass
+    if "username" in session:
+        return render_template("game.html");
+    else:
+        flash("You must be logged in to play the game.", 'danger')
+        return redirect(url_for("login"));
 
 app.debug=True
 app.run()
