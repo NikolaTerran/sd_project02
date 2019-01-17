@@ -3,6 +3,8 @@
 
 {% block header %}
 
+<head>
+
 <style>
 .terminal {
     background-color: #303133;
@@ -15,11 +17,18 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+</head>
+
 {% endblock %}
 
 {% block body %}
+
+<body>
+
 <div class="container">
+
     <div class="row m-4">
+
         <div class="col">
             <ul class="list-unstyled terminal" id="map_id"></ul>
             <input id="cmd" type="text" value="type your commands here">
@@ -27,6 +36,7 @@
 
         <div class="col-0.5">
         </div>
+
         <div class="col terminal text-left" style="max-height: 290px; overflow: auto;" id="prompt_wrapper">
             <ul class="list-unstyled" id="prompt"></ul>
         </div>
@@ -41,5 +51,7 @@
 </div>
 
 <script src="{{ url_for('static', filename='game.js')}}"></script>
+
+</body>
 
 {% endblock %}
