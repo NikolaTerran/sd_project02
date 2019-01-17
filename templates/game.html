@@ -1,62 +1,26 @@
 {% extends "base.html" %}
 {% block header %}
 <style>
-.cool {
-  background-color:black;
-  color:white;
+.terminal {
+    background-color: black;
+    color: #98fb98;
+    font-family: Courier New, Courier, monospace;
 }
 </style>
-<!--
-
-
-	
-
-	<body>
-<div class="container">
-	<div class="cool">
-				<ul style="font-family: Courier New, Courier, monospace;list-style-type: none;" id="map_id"> 
-				</ul>
-	</div>
-	
-	<div style="height:400px">
-				<ul id="prompt" style="list-style-type: none;">
-				</ul>
-	</div>
-
-	<input id="cmd" type="text" value="type your commands here" ></input>
-
-	</body>
-
-	<footer>
-	<script>
-	
-
-
-
-
-	</script>
-
-	</footer>
-</html> -->
-
 {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<div class="cool">
-			    <ul class="list-unstyled" style="font-family: Courier New, Courier, monospace;" id="map_id"></ul>
-			</div>
-		</div>
-		<div class="col">
-			<div class="cool">
-			    <ul class="list-unstyled" id="prompt"></ul>
-			</div>
-		</div>
-	</div>
-	<input id="cmd" type="text" value="type your commands here">
+<div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%)">
+    <div class="row">
+        <div class="col">
+            <ul class="list-unstyled terminal" id="map_id"></ul>
+            <input id="cmd" type="text" value="type your commands here">
+        </div>
+        <div class="col-0.5">
+        </div>
+        <div class="col terminal" style="max-height: 290px; overflow: auto;" id="prompt_wrapper">
+            <ul class="list-unstyled" id="prompt"></ul>
+        </div>
+    </div>
 </div>
-
 <script src="{{ url_for('static', filename='game.js')}}"></script>
 {% endblock %}
-

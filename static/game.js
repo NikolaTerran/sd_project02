@@ -1,5 +1,3 @@
-var text_limit = 0;
-
 var plot_point = 0;
 
 var user_input = "";
@@ -95,6 +93,18 @@ var sp_event = 0;
 function open_d(x,y){
     pxc = px;
     pyc = py;
+    if (user_input == "w"){
+        user_input = "west";
+    }
+    else if (user_input == "e"){
+        user_input = "east";
+    }
+    else if (user_input == "s"){
+        user_input = "south";
+    }
+    else if (user_input == "n"){
+        user_input = "north";
+    }
     try{
         if(user_input === "north"){pxc--; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3;print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
         else if(user_input === "south"){pxc++; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
@@ -111,21 +121,13 @@ function open_d(x,y){
 
 
 function print(say_what){
-    if(text_limit == 10){
-        var new_li = document.createElement("LI");
-        var textnode = document.createTextNode(say_what);
-        select_prompt.removeChild(select_prompt.childNodes[0]);
-        new_li.appendChild(textnode);
-        select_prompt.appendChild(new_li);
-    }else{
-        var new_li = document.createElement("LI");
-        var textnode = document.createTextNode(say_what);
-        new_li.appendChild(textnode);
-        select_prompt.appendChild(new_li);
-        text_limit++;
-    }
+    var new_li = document.createElement("LI");
+    var textnode = document.createTextNode(say_what);
+    new_li.appendChild(textnode);
+    select_prompt.appendChild(new_li);
+	var prompt_wrapper = document.getElementById("prompt_wrapper");
+	prompt_wrapper.scrollTop = prompt_wrapper.scrollHeight - prompt_wrapper.clientHeight;
 }
-
 
 var px = 4;
 var py = 0;
@@ -339,7 +341,6 @@ function render_map(){
         //console.log(mx);
         while(my < max_y){
             //console.log(map[mx][my]);
-            console.log(max_x);
             switch(map[mx][my]){
                 case 1: var textnode = document.createTextNode("@");
                         new_li.appendChild(textnode);
