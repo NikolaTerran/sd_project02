@@ -1,4 +1,3 @@
-
 var rapidapikey;
 
 var plot_point = 0;
@@ -77,16 +76,15 @@ function process_command(){
                 
                 //engage combat
                 if(map[px][py] != "7"){
-		                   
-		        cv = map[px][py];
-		        map[px][py] = 1;
-		        clr_mist();
-		
-		}else{
-			cv = mon_search();
-			map[px][py] = 9;
-		        clr_mist();
-			sp_event = 2;
+                    cv = map[px][py];
+                    map[px][py] = 1;
+                    clr_mist();
+                }
+                else{
+                    cv = mon_search();
+                    map[px][py] = 9;
+                    clr_mist();
+                    sp_event = 2;
 			
 var dict = (function (){
 var url = "https://wordsapiv1.p.rapidapi.com/words/?lettersMin=1&lettersMax=13&hasDetails=definitions&random=true";
@@ -98,7 +96,7 @@ $.ajax({
   method: 'GET',
   dataType: 'JSON',
    headers: {           //hard code api key
-    "X-RapidAPI-Key":"ooreG0SW0YmshcfShlO6cb32JSVWp1lQoYDjsnllIJsCcvyHs5"
+    "X-RapidAPI-Key": rapidapikey
   },
   success: function(data) {
     console.log(data);
@@ -114,90 +112,82 @@ $.ajax({
 
 ans_s = dict[0];
 
-console.log(dict[0]);
-var count = dict[0].length;
-	//console.log(count);
-	//console.log(win_cond);
+for (var count = 0; count < ans_s.length; count++) {
+    str[count] = ans_s.substring(count, count + 1);
+    ans[count] = str[count];
+}
 
-	
-	while(count > 0){		
-		str[count] = dict[0].substring(0,1);
-		ans[count] = str[count];
-		dict[0] = dict[0].substring(1);
-		count--;
-	}
-	
-	//console.log(str);
+//console.log(str);
 
-			print("fight!");
-			print("what is the word?");
-			print("definition " + dict[1]);
-			render_combat();
-		}
-            }
+print("fight!");
+print("what is the word?");
+print("definition " + dict[1]);
+render_combat();
+}
+}
+}
+else if(user_input === "kick"){
+    print("which direction?");
+    sp_event = 1;
+    //open_d();
+    //print("you kicked.");
+    //plot("kick");
+}
+else if(user_input === "down"){
+    if(cv == 8){
+        ran_gen();
+    }else{
+        print("you can't go down from here!");
+    }
+}
+else{
+    print("invalid command.");
+}
+}
+else if(sp_event == 1){
+    open_d();
+}else if(sp_event == 2){
+
+    var win_check = 0;
+    var count = str.length;
+    var hit = 0;
+    while(count >= 0){
+        if(str[count] === "$" || str[count] === " " || str[count] === "-" || str[count] === "\'"){
+            win_check ++;
+            console.log("str.len: " + str.length);
         }
-        else if(user_input === "kick"){
-            print("which direction?");
-            sp_event = 1;
-            //open_d();
-            //print("you kicked.");
-            //plot("kick");
-        }
-        else if(user_input === "down"){
-        	if(cv == 8){
-        		ran_gen();
-        	}else{
-        		print("you can't go down from here!");
-        	}
-        }
-        else{
-            print("invalid command.");
+
+        if(user_input === str[count]){
+            //win_cond--;
+            str[count] = "$";
+            render_combat();
+            console.log("win_c: " + win_check);
+            count--;
+            hit = 1;
+        }else{
+            count--;
         }
     }
-    else if(sp_event == 1){
-        open_d();
-    }else if(sp_event == 2){
-    	
-    	var win_check = 0;
-    	var count = str.length;
-	var hit = 0;
-    	while(count >= 0){
-    		if(str[count] === "$" || str[count] === " " || str[count] === "-" || str[count] === "\'"){
-    			win_check ++;
-    			console.log("str.len: " + str.length);
-    		}
-    	
-			if(user_input === str[count]){
-				//win_cond--;
-				str[count] = "$";
-				render_combat();
-				console.log("win_c: " + win_check);
-				count--;
-				hit = 1;
-			}else{
-			  count--;
-			}
-    	}
-	if(hit == 0){
-		hp--;
-		print("ahh! You hp are now at (" + hp + "/" + hp_max + ")");
-	}
-	if(win_check == str.length - 2){
-		print("you win!");
-		hp = hp_max;
-		sp_event = 0;
-	}
-	if(hp == 0){
-		print("the answer is: " + ans_s);
-		print("game over! type \"restart\" to continue...");
-		sp_event = 4;
-	}
-    }else if(sp_event == 4){
-		if(user_input === "restart"){
-			window.location.reload(false); 
-		}
-	
-	}
+    if(hit == 0){
+        hp--;
+        print("ahh! You hp are now at (" + hp + "/" + hp_max + ")");
+    }
+    if(win_check == str.length - 1){
+        print("you win!");
+        hp = hp_max;
+        sp_event = 0;
+    }
+    if(hp == 0){
+        print("the answer is: " + ans_s);
+        print("game over! type \"restart\" to continue...");
+        sp_event = 4;
+    }
+}else if(sp_event == 4){
+    if(user_input === "restart"){
+        window.location.reload(false); 
+    }
+
+}
 }
 
 //wisdom: https://stackoverflow.com/questions/28933486/javascript-array-undefined-error
@@ -207,67 +197,46 @@ var str = [];
 var ans = [];
 var ans_s = "";
 
-
 //wisdom: https://stackoverflow.com/questions/10262356/jquery-return-from-function
 //https://stackoverflow.com/questions/45261255/how-to-use-an-api-key-for-an-ajax-call
 //https://stackoverflow.com/questions/2177548/load-json-into-variable
 
-
-
-
-
 function render_combat(){
-	
-	var ul = document.getElementById("combat");
-	var li = document.createElement("LI");
-	
-	try{ul.removeChild(ul.childNodes[0]);
-	}catch{console.log("uh-on");}
-	ul.appendChild(li);
-	
-	
-
-	
-	
-	
-	var count = str.length - 1;
-	
-	while(count > 0){
-		if(str[count] == " "){
-			var txt = document.createTextNode("\xa0\xa0");
-			li.appendChild(txt);
-			count--;
-		}else if(str[count] == "\'"){
-			var txt = document.createTextNode("\'\xa0");
-			li.appendChild(txt);
-			count--;
-		}else if(str[count] == "-"){
-			var txt = document.createTextNode("-\xa0");
-			li.appendChild(txt);
-			count--;
-		}else if(str[count] == "$"){
-		    var answer = ans[count];
-			var txt = document.createTextNode(answer + "\xa0");
-			li.appendChild(txt);
-			count--;
-		
-		}else{
-			var txt = document.createTextNode("_\xa0");
-			li.appendChild(txt);
-			count--;
-		}
-	}
-		
+    var combat_screen = document.getElementById("combat");
+    combat_screen.innerHTML = '';
+    var word = document.createElement("p");
+    combat_screen.append(word);
+    word.className = "terminal";
+    hint = ""
+    for (var count = 0; count < str.length; count++){
+        if (str[count] === " "){
+            hint += "\xa0\xa0";
+        }
+        else if(str[count] === "\'"){
+            hint += "\'\xa0";
+        }
+        else if(str[count] === "-"){
+            hint += "-\xa0";
+        }
+        else if(str[count] === "$"){
+            hint += ans[count] + "\xa0";
+        }
+        else{
+            hint += "_\xa0";
+        }
+    }
+    console.log(hint);
+    word.textContent = hint;
 }
 
 function mon_search(){
-	var count = 0;
-	
-	while(mon[count][0] != px && mon[count][1] != py){
-		count ++;
-	}
-	
-	return mon[count][2];
+    var count = 0;
+
+    while(mon[count][0] != px && mon[count][1] != py){
+        count ++;
+    }
+
+    return mon[count][2];
 }
 
 //0 == normal
@@ -310,8 +279,8 @@ function print(say_what){
     var textnode = document.createTextNode(say_what);
     new_li.appendChild(textnode);
     select_prompt.appendChild(new_li);
-	var prompt_wrapper = document.getElementById("prompt_wrapper");
-	prompt_wrapper.scrollTop = prompt_wrapper.scrollHeight - prompt_wrapper.clientHeight;
+    var prompt_wrapper = document.getElementById("prompt_wrapper");
+    prompt_wrapper.scrollTop = prompt_wrapper.scrollHeight - prompt_wrapper.clientHeight;
 }
 
 var hp_max = 6;
@@ -357,40 +326,40 @@ function plot(input){
 window.onload = plot("hi");
 
 function mp_clr(){
-	var mx = 0;
-	var my = 0;
-	while(mx < max_x){
-		
-		
-			while(my < max_y){
-				map[mx][my] = 0;
-				console.log("[mx]: " + mx + " [my]: " + my);
-				my++;
-			}
-		my = 0;
-		mx++;
-	}
+    var mx = 0;
+    var my = 0;
+    while(mx < max_x){
+
+
+        while(my < max_y){
+            map[mx][my] = 0;
+            console.log("[mx]: " + mx + " [my]: " + my);
+            my++;
+        }
+        my = 0;
+        mx++;
+    }
 }
 
 function ran_gen(){
-	mp_clr();
-	cv = 4;
-	px = Math.floor(Math.random() * max_x);
-	py = Math.floor(Math.random() * max_y);
-	map[px][py] = 1;
-	
-	dir = ran_dir();
-	switch(dir){
-		case 0:  
-		case 1:
-		case 2:
-		case 3:
-	}	
+    mp_clr();
+    cv = 4;
+    px = Math.floor(Math.random() * max_x);
+    py = Math.floor(Math.random() * max_y);
+    map[px][py] = 1;
+
+    dir = ran_dir();
+    switch(dir){
+        case 0:  
+        case 1:
+        case 2:
+        case 3:
+    }	
 }
 
 function ran_dir(){
-	var dir = Math.floor(Math.random() * 4);
-	return dir;
+    var dir = Math.floor(Math.random() * 4);
+    return dir;
 }
 
 //0 == space
@@ -420,20 +389,20 @@ function ran_dir(){
 
 
 var map = [[17,13,14,13,17,13,14,0 ,0 ,0 ],
-           [0 ,0 ,15,0 ,0 ,0 ,12,0 ,0 ,0 ],
-           [0 ,0 ,14,0 ,0 ,0 ,18,0 ,0 ,0 ],
-           [0 ,0 ,15,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
-           [1 ,2 ,16,13,14,13,17,13,14,0 ],
-           [0 ,0 ,0 ,0 ,0 ,0 ,15,0 ,0 ,0 ],
-           [0 ,0 ,0 ,0 ,17,12,14,0 ,0 ,0 ],
-           [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
-           [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
-           [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]];
+    [0 ,0 ,15,0 ,0 ,0 ,12,0 ,0 ,0 ],
+    [0 ,0 ,14,0 ,0 ,0 ,18,0 ,0 ,0 ],
+    [0 ,0 ,15,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+    [1 ,2 ,16,13,14,13,17,13,14,0 ],
+    [0 ,0 ,0 ,0 ,0 ,0 ,15,0 ,0 ,0 ],
+    [0 ,0 ,0 ,0 ,17,12,14,0 ,0 ,0 ],
+    [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+    [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+    [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]];
 
 var mon = [[0,0,4],
-	   [0,4,4],
-	   [4,6,4],
-	   [6,2,4]];
+    [0,4,4],
+    [4,6,4],
+    [6,2,4]];
 
 //max map dimension		   
 var max_y = map.length;
@@ -457,7 +426,7 @@ function clr_mist(){
                 }
             }else if(map[px_clone][py_clone] != 2){
                 px_clone -= 1;						console.log("px = " + px);
-                							console.log("pxc = " + px_clone);
+                console.log("pxc = " + px_clone);
                 if(map[px_clone][py_clone] > 10){
                     map[px_clone][py_clone] -= 10;
                 }
@@ -609,8 +578,6 @@ function render_map(){
 window.onload = render_map();
 
 
-/*
-it's not working!
 function load_key() {
     var req = new XMLHttpRequest();
     req.open("GET", "static/rapidapikey");
@@ -626,4 +593,4 @@ function load_key() {
     }
     req.send();
 }
-load_key(); */
+load_key();
