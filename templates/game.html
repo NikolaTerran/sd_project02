@@ -6,42 +6,11 @@
   color:white;
 }
 </style>
-<!--
 
-
-	
-
-	<body>
-<div class="container">
-	<div class="cool">
-				<ul style="font-family: Courier New, Courier, monospace;list-style-type: none;" id="map_id"> 
-				</ul>
-	</div>
-	
-	<div style="height:400px">
-				<ul id="prompt" style="list-style-type: none;">
-				</ul>
-	</div>
-
-	<input id="cmd" type="text" value="type your commands here" ></input>
-
-	</body>
-
-	<footer>
-	<script>
-	
-
-
-
-
-	</script>
-
-	</footer>
-</html> -->
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 {% endblock %}
 {% block body %}
-<div class="container">
+<div class="container" id="other_place">
 	<div class="row">
 		<div class="col">
 			<div class="cool">
@@ -56,6 +25,8 @@
 	</div>
 	<input id="cmd" type="text" value="type your commands here">
 </div>
+
+
 
 <script src="{{ url_for('static', filename='game.js')}}"></script>
 {% endblock %}

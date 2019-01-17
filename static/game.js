@@ -10,6 +10,7 @@ var get_input = document.getElementById("cmd");
 get_input.addEventListener("keypress", return_input);
 get_input.addEventListener("click", function() { get_input.value = ""; });
 
+
 function return_input(event){
     var x = event.keyCode;
     //console.log(x);
@@ -261,25 +262,25 @@ window.onload = plot("hi");
 //10 20== reserved
 
 /* tutuorial level layout
-   0 *-*-*-*
+   0 !-*-!-*
    1   |   +
    2   *   >
    3   |
-   4 @+@-*-*-*
+   4 @+&-*-!-*
    5     |
-   6   *+*
+   6   !+*
    7
    8
    9
    */	
 
-var map = [[14,13,14,13,14,13,14,0 ,0 ,0 ],
+var map = [[17,13,14,13,17,13,14,0 ,0 ,0 ],
            [0 ,0 ,15,0 ,0 ,0 ,12,0 ,0 ,0 ],
            [0 ,0 ,14,0 ,0 ,0 ,18,0 ,0 ,0 ],
            [0 ,0 ,15,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
-           [1 ,2 ,16,13,14,13,14,13,14,0 ],
+           [1 ,2 ,16,13,14,13,17,13,14,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,15,0 ,0 ,0 ],
-           [0 ,0 ,0 ,0 ,13,12,13,0 ,0 ,0 ],
+           [0 ,0 ,0 ,0 ,17,12,13,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]];
