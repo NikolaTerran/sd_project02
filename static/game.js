@@ -112,6 +112,8 @@ $.ajax({
 	return dict;
 })();
 
+ans_s = dict[0];
+
 console.log(dict[0]);
 var count = dict[0].length;
 	//console.log(count);
@@ -140,6 +142,13 @@ var count = dict[0].length;
             //open_d();
             //print("you kicked.");
             //plot("kick");
+        }
+        else if(user_input === "down"){
+        	if(cv == 8){
+        		ran_gen();
+        	}else{
+        		print("you can't go down from here!");
+        	}
         }
         else{
             print("invalid command.");
@@ -179,6 +188,7 @@ var count = dict[0].length;
 		sp_event = 0;
 	}
 	if(hp == 0){
+		print("the answer is: " + ans_s);
 		print("game over! type \"restart\" to continue...");
 		sp_event = 4;
 	}
@@ -195,7 +205,7 @@ var count = dict[0].length;
 
 var str = [];
 var ans = [];
-
+var ans_s = "";
 
 
 //wisdom: https://stackoverflow.com/questions/10262356/jquery-return-from-function
@@ -346,13 +356,41 @@ function plot(input){
 
 window.onload = plot("hi");
 
+function mp_clr(){
+	var mx = 0;
+	var my = 0;
+	while(mx < max_x){
+		
+		
+			while(my < max_y){
+				map[mx][my] = 0;
+				console.log("[mx]: " + mx + " [my]: " + my);
+				my++;
+			}
+		my = 0;
+		mx++;
+	}
+}
+
 function ran_gen(){
+	mp_clr();
 	cv = 4;
 	px = Math.floor(Math.random() * max_x);
 	py = Math.floor(Math.random() * max_y);
+	map[px][py] = 1;
 	
-	
+	dir = ran_dir();
+	switch(dir){
+		case 0:  
+		case 1:
+		case 2:
+		case 3:
+	}	
+}
 
+function ran_dir(){
+	var dir = Math.floor(Math.random() * 4);
+	return dir;
 }
 
 //0 == space
