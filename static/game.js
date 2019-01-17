@@ -1,3 +1,5 @@
+var rapidapikey;
+
 var plot_point = 0;
 
 var user_input = "";
@@ -427,7 +429,7 @@ $.ajax({
   method: 'GET',
   dataType: 'JSON',
    headers: {
-    "X-RapidAPI-Key": "H4M1sxY4O1msh9v8MrcQtN3bxkdXp123G2cjsnp44qxdKtuXnu"
+    "X-RapidAPI-Key": rapidapikey
   },
   success: function(data) {
     //console.log(data);
@@ -440,11 +442,22 @@ $.ajax({
   }
 })
 	console.log(wd);
-
 }
 
+function load_key() {
+    var req = new XMLHttpRequest();
+    req.open("GET", "static/rapidapikey");
+    req.onreadystatechange = function ()
+    {
+        if (req.readyState === 4)
+        {
+            if (req.status === 200)
+            {
+                rapidapikey = req.responseText.trim();
+            }
+        }
+    }
+    req.send();
+}
 
-window.onload = get_word();
-
-
-
+load_key();
