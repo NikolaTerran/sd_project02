@@ -91,7 +91,7 @@ function process_command(){
 
 var sp_event = 0;
 
-function open_d(x,y){
+function open_d(){
     pxc = px;
     pyc = py;
     if (user_input == "w"){
@@ -207,7 +207,7 @@ var map = [[17,13,14,13,17,13,14,0 ,0 ,0 ],
            [0 ,0 ,15,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
            [1 ,2 ,16,13,14,13,17,13,14,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,15,0 ,0 ,0 ],
-           [0 ,0 ,0 ,0 ,17,12,13,0 ,0 ,0 ],
+           [0 ,0 ,0 ,0 ,17,12,14,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]];
@@ -225,7 +225,7 @@ function clr_mist(){
 
     px_clone -= 1;
 
-    if(px_clone >= 0){
+    if(px_clone > 0){
         if(map[px_clone][py_clone] != 0){
             if(map[px_clone][py_clone] > 10){
                 map[px_clone][py_clone] -= 10;
@@ -235,7 +235,8 @@ function clr_mist(){
                     map[px_clone][py_clone] -= 10;
                 }
             }else if(map[px_clone][py_clone] != 2){
-                px_clone -= 1;
+                px_clone -= 1;						console.log("px = " + px);
+                							console.log("pxc = " + px_clone);
                 if(map[px_clone][py_clone] > 10){
                     map[px_clone][py_clone] -= 10;
                 }
