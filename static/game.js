@@ -111,6 +111,8 @@ $.ajax({
 })();
 
 ans_s = dict[0];
+str = [];
+ans = [];
 
 for (var count = 0; count < ans_s.length; count++) {
     str[count] = ans_s.substring(count, count + 1);
@@ -119,9 +121,9 @@ for (var count = 0; count < ans_s.length; count++) {
 
 //console.log(str);
 
-print("fight!");
-print("what is the word?");
-print("DEFINITION::: " + dict[1]);
+print("fight! guess the word!");
+print("DEFINITION:::");
+print(dict[1]);
 render_combat();
 }
 }
@@ -170,7 +172,7 @@ else if(sp_event == 1){
     }
     if(hit == 0){
         hp--;
-        print("ahh! You hp are now at (" + hp + "/" + hp_max + ")");
+        print("ahh! Your hp is now at (" + hp + "/" + hp_max + ")");
     }
     if(win_check == str.length - 1){
         print("you win!");
@@ -231,7 +233,6 @@ function render_combat(){
             hint += "_\xa0";
         }
     }
-    console.log(hint);
     word.textContent = hint;
 }
 
@@ -278,7 +279,6 @@ function open_d(){
         print("ouch, that hurts!");
     }
 }
-
 
 function print(say_what){
     var new_li = document.createElement("LI");
