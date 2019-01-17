@@ -7,10 +7,8 @@ var user_input = "";
 var select_prompt = document.getElementById("prompt");
 
 var get_input = document.getElementById("cmd");
-get_input.addEventListener("keypress",return_input);
-get_input.addEventListener("click",function(){
-        get_input.value = "";
-        });
+get_input.addEventListener("keypress", return_input);
+get_input.addEventListener("click", function() { get_input.value = ""; });
 
 function return_input(event){
     var x = event.keyCode;
@@ -27,11 +25,9 @@ function return_input(event){
 function process_command(){
     if(sp_event == 0){
 
-        if(!user_input.localeCompare("west")){
+        if(user_input === "west"){
             print("you walked toward west.");
             //plot("west");
-
-
             if(py > 0){
                 py--;
                 if(map[px][py] != 0){
@@ -52,14 +48,14 @@ function process_command(){
                     py++;
                     print("you bumped into a wall.");
                 }
-            }else{
-
+            }
+            else{
                 print("you bumped into a wall.");
             }
 
 
         }
-        else if(!user_input.localeCompare("east")){
+        else if(user_input === "east"){
             print("you walked toward east.");
             //plot("east");
 
@@ -88,7 +84,7 @@ function process_command(){
 
 
         }
-        else if(!user_input.localeCompare("south")){
+        else if(user_input === "south"){
             print("you walked toward south.");
             //plot("south");
 
@@ -118,7 +114,7 @@ function process_command(){
 
 
         }
-        else if(!user_input.localeCompare("north")){
+        else if(user_input === "north"){
             print("you walked toward north.");
             //plot("north");
             if(px > 0){
@@ -145,7 +141,7 @@ function process_command(){
                 print("you bumped into a wall.");
             }
         }
-        else if(!user_input.localeCompare("kick")){
+        else if(user_input === "kick"){
             print("which direction?");
             sp_event = 1;
             //open_d();
@@ -169,10 +165,10 @@ function open_d(x,y){
     pxc = px;
     pyc = py;
     try{
-        if(!user_input.localeCompare("north")){pxc--; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3;print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
-        else if(!user_input.localeCompare("south")){pxc++; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
-        else if(!user_input.localeCompare("east")){pyc++; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
-        else if(!user_input.localeCompare("west")){pyc--; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
+        if(user_input === "north"){pxc--; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3;print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
+        else if(user_input === "south"){pxc++; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
+        else if(user_input === "east"){pyc++; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
+        else if(user_input === "west"){pyc--; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
         sp_event = 0;
         clr_mist();
     }
@@ -217,19 +213,19 @@ function plot(input){
     switch(locale){
         case 0: print("You descended into the dungeon, the first level is a tutorial level, where you'll get familiar with the game. There is an exit to the east, type \"east\" in the command prompt to get out of the room.");
                 plot_point++;
-        case 1: if(!input.localeCompare("east") && plot_check == 0){
+        case 1: if(input === "east" && plot_check == 0){
                     print("There is a locked door preventing you exiting the room, maybe you can try to kick it really hard. Typing \"kick\" in the command prompt to kick.");
                     break;
                 }
-                else if(!input.localeCompare("west") ||
-                        !input.localeCompare("north") ||
-                        !input.localeCompare("south")){
+                else if(input === "west" ||
+                        input === "north" ||
+                        input === "south"){
                     print("Nothing interesting was found at this corner");break;
-                }else if(!input.localeCompare("kick")){
+                }else if(input === "kick"){
                     print("Whammm! the door opens, you can proceed to the next room by type \"east\" again in the command prompt.");
                     open_d(1,4);
                     plot_check = 1;
-                }else if(!input.localeCompare("east") && plot_check == 1){
+                }else if(input === "east" && plot_check == 1){
                     //px++;
                     //cv = map[px][py];
                     //cx = px;
@@ -275,16 +271,16 @@ window.onload = plot("hi");
    9
    */	
 
-var map = 	  [[14,13,14,13,14,13,14,0 ,0 ,0 ],
-    [0 ,0 ,15,0 ,0 ,0 ,12,0 ,0 ,0 ],
-    [0 ,0 ,14,0 ,0 ,0 ,18,0 ,0 ,0 ],
-    [0 ,0 ,15,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
-    [1 ,2 ,16,13,14,13,14,13,14,0 ],
-    [0 ,0 ,0 ,0 ,0 ,0 ,15,0 ,0 ,0 ],
-    [0 ,0 ,0 ,0 ,13,12,13,0 ,0 ,0 ],
-    [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
-    [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
-    [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]];
+var map = [[14,13,14,13,14,13,14,0 ,0 ,0 ],
+           [0 ,0 ,15,0 ,0 ,0 ,12,0 ,0 ,0 ],
+           [0 ,0 ,14,0 ,0 ,0 ,18,0 ,0 ,0 ],
+           [0 ,0 ,15,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+           [1 ,2 ,16,13,14,13,14,13,14,0 ],
+           [0 ,0 ,0 ,0 ,0 ,0 ,15,0 ,0 ,0 ],
+           [0 ,0 ,0 ,0 ,13,12,13,0 ,0 ,0 ],
+           [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+           [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+           [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]];
 
 //max map dimension		   
 var max_y = 30;
