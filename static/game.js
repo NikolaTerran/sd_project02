@@ -21,6 +21,11 @@ function return_input(event){
     }
 }
 
+//movement variables
+var px = 4;
+var py = 0;
+var cv = 4;
+
 function process_command(){
     if(sp_event == 0){
         if (user_input == "w"){
@@ -62,12 +67,24 @@ function process_command(){
                 print("you bumped into a door. (hint: try kicking)");
             }
             else{
+            	
                 map[px][py] = cv;
                 px += x_offset;
                 py += y_offset;
-                cv = map[px][py];
-                map[px][py] = 1;
-                clr_mist();
+                
+                //engage combat
+                if(map[px][py] != "7"){
+		                   
+		        cv = map[px][py];
+		        map[px][py] = 1;
+		        clr_mist();
+		
+		}else{
+			cv = mon_search();
+			map[px][py] = 9;
+		        clr_mist();
+		
+		}
             }
         }
         else if(user_input === "kick"){
@@ -84,6 +101,16 @@ function process_command(){
     else if(sp_event == 1){
         open_d();
     }
+}
+
+function mon_search(){
+	var count = 0;
+	
+	while(mon[count][0] != px && mon[count][1] != py){
+		count ++;
+	}
+	
+	return mon[count][2];
 }
 
 //0 == normal
@@ -130,10 +157,7 @@ function print(say_what){
 	prompt_wrapper.scrollTop = prompt_wrapper.scrollHeight - prompt_wrapper.clientHeight;
 }
 
-var px = 4;
-var py = 0;
 
-var cv = 4;
 
 var plot_check = 0;
 function plot(input){
@@ -184,7 +208,7 @@ window.onload = plot("hi");
 //6 16== & helpful npc
 //7 17== ! monster
 //8 18== > stair down
-//9 19== reserved
+//9 19== x combat
 //10 20== reserved
 
 /* tutuorial level layout
@@ -212,7 +236,10 @@ var map = [[17,13,14,13,17,13,14,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]];
 
-
+var mon = [[0,0,4],
+	   [0,4,4],
+	   [4,6,4],
+	   [6,2,4]];
 
 //max map dimension		   
 var max_y = map.length;
@@ -369,6 +396,9 @@ function render_map(){
                         new_li.appendChild(textnode);
                         break;
                 case 8: var textnode = document.createTextNode(">");
+                        new_li.appendChild(textnode);
+                        break;
+                case 9: var textnode = document.createTextNode("x");
                         new_li.appendChild(textnode);
                         break;
                 default: var textnode = document.createTextNode('\xa0');
