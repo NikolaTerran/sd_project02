@@ -6,13 +6,8 @@ Register
 
 {% block body %}
 
-<div class="p-3 mb-2 bg-dark text-white">
 <center>
-  <h2>
-    <p class="text-primary"> Register thy character </p>
-  </h2>
-
-
+  <h2 class="text-primary"> Register thy character </h2>
     
   <form action = "/register" method = "POST">
     <div class="form-group">
@@ -28,16 +23,8 @@ Register
       <input type="password" name="passConf" class="form-control" id="exampleInputPassword2" placeholder="Confirm password" style="width: 300px">
     </div>
     <button type="submit" value="Submit" class="btn btn-primary">Register</button>
-    <p>
   </form>
-
-
-
   Already have an account? Log in <a href = "/login">here</a>
-
 </center>
 
-</div>
-
 {% endblock %}
-
