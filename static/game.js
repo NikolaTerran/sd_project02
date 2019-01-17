@@ -89,6 +89,7 @@ function process_command(){
 			
 			print("fight!");
 			print("what is the word?");
+			print("definition " + dict[1]);
 			render_combat();
 		}
             }
@@ -108,27 +109,90 @@ function process_command(){
         open_d();
     }else if(sp_event == 2){
     	
-    	//console.log(wd[0]);
+    	var win_check = 0;
+    	var count = str.length;
+    	while(count >= 0){
+    		if(str[count] === "$"){
+    			win_check ++;
+    			console.log(str.length);
+    		}
+    	
+			if(user_input === str[count]){
+				//win_cond--;
+				str[count] = "$";
+				render_combat();
+				console.log(win_check);
+			}else{
+			  count--;
+			}
+    	}
     }
 }
 
 //wisdom: https://stackoverflow.com/questions/28933486/javascript-array-undefined-error
 //https://www.w3schools.com/js/js_mistakes.asp
 
+var str = [];
+var ans = [];
+
+
 function render_combat(){
+	
 	var ul = document.getElementById("combat");
 	var li = document.createElement("LI");
+	
+	try{ul.removeChild(ul.childNodes[0]);
+	}catch{console.log("uh-on");}
 	ul.appendChild(li);
 	
-	console.log(dict[0].length);
-	console.log(dict[1]);
-	print(dict[1]);
+	//console.log(dict[0].length);
+	console.log(dict[0]);
+	
+	
+
+	
+	
 	var count = dict[0].length;
-	while(count > 0){
-		var txt = document.createTextNode("_\xa0");
-		li.appendChild(txt);
+	//console.log(count);
+	//console.log(win_cond);
+	win_cond = count;
+	
+	while(count > 0){		
+		str[count] = dict[0].substring(0,1);
+		ans[count] = str[count];
+		dict[0] = dict[0].substring(1);
 		count--;
-	}	
+	}
+	
+	//console.log(str);
+	count = str.length - 1;
+	
+	while(count > 0){
+		if(str[count] == " "){
+			var txt = document.createTextNode("\xa0\xa0");
+			li.appendChild(txt);
+			count--;
+		}else if(str[count] == "\'"){
+			var txt = document.createTextNode("\'\xa0");
+			li.appendChild(txt);
+			count--;
+		}else if(str[count] == "-"){
+			var txt = document.createTextNode("-\xa0");
+			li.appendChild(txt);
+			count--;
+		}else if(str[count] == "$"){
+		    var answer = ans[count];
+			var txt = document.createTextNode(answer + "\xa0");
+			li.appendChild(txt);
+			count--;
+		
+		}else{
+			var txt = document.createTextNode("_\xa0");
+			li.appendChild(txt);
+			count--;
+		}
+	}
+		
 }
 
 function mon_search(){
@@ -474,7 +538,7 @@ $.ajax({
 	return dict;
 })();
 
-
+var win_cond = dict[0].length;
 /*
 it's not working!
 
