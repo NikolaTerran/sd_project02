@@ -3,13 +3,18 @@
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <style>
+		a, a:hover, a:focus {
+			text-decoration: none;
+		}
+        </style>
         <title> {% block title %} Mykolyk's Ultimate Dictionary {% endblock %} </title>
         {% block header %}{% endblock %}
     </head>
     <body class="container text-center border rounded mt-5">
-        <h1 class="text-success font-weight-bold">
+        <a href="/" class="display-4 text-success font-weight-bold m-1">
             Mykolyk's Ultimate Dictionary
-        </h1>
+        </a>
         <div class="center-block bg-light border rounded">
             {% block alerts %}
             {% with msgs = get_flashed_messages(with_categories=true) %}
