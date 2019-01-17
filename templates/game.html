@@ -39,17 +39,7 @@ p.serif {
 
 	<body>
 
-	<ul style="font-family: Courier New, Courier, monospace;">
-		<li id = "a"></li>
-		<li id = "b"></li>
-		<li id = "c"></li>
-		<li id = "d"></li>
-		<li id = "e"></li>
-		<li id = "f"></li>
-		<li id = "g"></li>
-		<li id = "h"></li>
-		<li id = "i"></li>
-		<li id = "j"></li>
+	<ul style="font-family: Courier New, Courier, monospace;" id="map_id">
 	</ul>
 
 	<ul id="prompt">
@@ -88,75 +78,171 @@ p.serif {
 		}
 	}
 
+	
+
 	function process_command(){
-		if(!user_input.localeCompare("west")){
-			print("you walked toward west.");
-			//plot("west");
-			if(py > 0){
-				py--;
-				map[cx][cy] = cv;
-				cv = map[px][py];
-				map[px][py] = 1;
-				cx = px;
-				cy = py;
-				clr_mist();
-			}else{
-				print("you bumped into a wall.");
-			}
-		}
-		else if(!user_input.localeCompare("east")){
-			print("you walked toward east.");
-			//plot("east");
-			if(py < 9){
-				py++;
-				map[cx][cy] = cv;
-				cv = map[px][py];
-				map[px][py] = 1;
-				cx = px;
-				cy = py;
-				clr_mist();
-			}else{
-				print("you bumped into a wall.");
-			}
-		}
-			else if(!user_input.localeCompare("south")){
-			print("you walked toward south.");
-			//plot("south");
-			if(px < 9){
-				px++;
-				map[cx][cy] = cv;
-				cv = map[px][py];
-				map[px][py] = 1;
-				cx = px;
-				cy = py;
-				clr_mist();
-			}else{
-				print("you bumped into a wall.");
-			}
-		}
-			else if(!user_input.localeCompare("north")){
-			print("you walked toward north.");
-			//plot("north");
-			if(px > 0){
-				px--;
-				map[cx][cy] = cv;
-				cv = map[px][py];
-				map[px][py] = 1;
-				cx = px;
-				cy = py;
-				clr_mist();
-			}else{
-				print("you bumped into a wall.");
-			}
-		}
-			else if(!user_input.localeCompare("kick")){
-			print("you kicked.");
-			//plot("kick");
+		if(sp_event == 0){
 			
-		}else{
-			print("invalid command.");
+			if(!user_input.localeCompare("west")){
+																	print("you walked toward west.");
+																	//plot("west");
+																	
+																	
+																	if(py > 0){
+																		py--;
+																		if(map[px][py] != 0){
+																			if(map[px][py] != 2){
+																			py--;
+																			map[cx][cy] = cv;
+																			cv = map[px][py];
+																			map[px][py] = 1;
+																			cx = px;
+																			cy = py;
+																			clr_mist();}
+																			else{
+																				py++;
+																				print("you bumped into a door.");
+																			}
+																			}
+																		else{
+																			py++;
+																			print("you bumped into a wall.");
+																		}
+																	}else{
+																	
+																		print("you bumped into a wall.");
+																	}
+				
+				
+			}
+			else if(!user_input.localeCompare("east")){
+																	print("you walked toward east.");
+																	//plot("east");
+																	
+																	
+																	if(py < max_y){
+																		py++;
+																		if(map[px][py] != 0){
+																			if(map[px][py] != 2){
+																			py++;
+																			map[cx][cy] = cv;
+																			cv = map[px][py];
+																			map[px][py] = 1;
+																			cx = px;
+																			cy = py;
+																			clr_mist();
+																			}else{
+																				print("you bumped into a door.");
+																			}
+																		}else{
+																			py--;
+																			print("you bumped into a wall.");
+																		}
+																	}else{
+																		print("you bumped into a wall.");
+																	}
+				
+				
+			}
+				else if(!user_input.localeCompare("south")){
+																	print("you walked toward south.");
+																	//plot("south");
+																	
+																	
+																	if(px < max_x){
+																		px++;
+																		if(map[px][py] != 0){
+																			if(map[px][py] != 2){
+																			px++;
+																			map[cx][cy] = cv;
+																			cv = map[px][py];
+																			map[px][py] = 1;
+																			cx = px;
+																			cy = py;
+																			clr_mist();
+																			}else{
+																				px--;
+																				print("you bumped into a door.");
+																			}
+																		}else{
+																		px--;
+																		print("you bumped into a wall.");
+																		}	
+																	}else{
+																		print("you bumped into a wall.");
+																	}
+				
+				
+			}
+				else if(!user_input.localeCompare("north")){
+															print("you walked toward north.");
+															//plot("north");
+															if(px > 0){
+																px--;
+																if(map[px][py] != 0){
+																	if(map[px][py] != 2){
+																px--;
+																map[cx][cy] = cv;
+																cv = map[px][py];
+																map[px][py] = 1;
+																cx = px;
+																cy = py;
+																clr_mist();
+																	}
+																	else{
+																		px++;
+																		print("you bumped into a door.");
+																	}
+																}else{
+																px++;
+																print("you bumped into a wall.");
+															}
+															}else{
+																print("you bumped into a wall.");
+															}
+			}
+				else if(!user_input.localeCompare("kick")){
+															print("which direction?");
+															sp_event = 1;
+															//open_d();
+															//print("you kicked.");
+															//plot("kick");
+				
+			}else{
+				print("invalid command.");
+			}
+		}else if(sp_event == 1){
+			open_d();
 		}
 	}
+
+	//0 == normal
+	//1 == kick door
+
+	var sp_event = 0;
+
+	function open_d(x,y){
+		pxc = px;
+		pyc = py;
+	try{
+		if(!user_input.localeCompare("north")){pxc--; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3;print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
+		else if(!user_input.localeCompare("south")){pxc++; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
+		else if(!user_input.localeCompare("east")){pyc++; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
+		else if(!user_input.localeCompare("west")){pyc--; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
+		sp_event = 0;
+		clr_mist();
+		}
+		catch{
+			sp_event = 0;
+			print("ouch, that hurts!");
+		}
+	}
+
+	function magic_door(){
+	
+	}
+	
+	
 
 	function print(say_what){
 		if(text_limit == 10){
@@ -216,62 +302,87 @@ var cv = 4;
 		}
 	}
 
-	function open_d(x,y){
-		map[x][y] = 3;
-		render_map();
-	}
+
 	
 	window.onload = plot("hi");
 
-	//1 7== @;
-	//2 8== +;
-	//3 9== -;
-	//4 10== *;
-	//5 11== |;
+	//0 == space
+	//1 11== @;
+	//2 12== +;
+	//3 13== -;
+	//4 14== *;
+	//5 15== |;
+	//6 16== & helpful npc
+	//7 17== ! monster
+	//8 18== > stair down
+	//9 19== reserved
+	//10 20== reserved
 	
 	/* tutuorial level layout
 		0 *-*-*-*
-		1   |   |
-		2   *   *
+		1   |   +
+		2   *   >
 		3   |
-		4 @+*-*-*-*
+		4 @+@-*-*-*
 		5     |
-		6   *-*
+		6   *+*
 		7
 		8
 		9
 	*/	
 		
-var map = [[10,9,10,9,10,9,10,0,0,0],
-		   [6,6,11,0,0,0,10,0,0,0],
-		   [6,6,10,0,0,0,9,0,0,0],
-		   [6,6,11,0,0,0,0,0,0,0],
-		   [1,2,10,9,10,9,10,9,10,0],
-		   [6,6,6,6,6,6,11,6,6,6],
-		   [6,6,6,6,9,8,10,6,6,6],
-		   [6,6,6,6,6,6,6,6,6,6],
-		   [6,6,6,6,6,6,6,6,6,6],
-		   [6,6,6,6,6,6,6,6,6,6]];
-		   
+var map = 	  [[14,13,14,13,14,13,14,0 ,0 ,0 ],
+			   [0 ,0 ,15,0 ,0 ,0 ,12,0 ,0 ,0 ],
+			   [0 ,0 ,14,0 ,0 ,0 ,18,0 ,0 ,0 ],
+			   [0 ,0 ,15,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+			   [1 ,2 ,16,13,14,13,14,13,14,0 ],
+			   [0 ,0 ,0 ,0 ,0 ,0 ,15,0 ,0 ,0 ],
+			   [0 ,0 ,0 ,0 ,13,12,13,0 ,0 ,0 ],
+			   [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+			   [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+			   [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ]];
 
-		   
+//max map dimension		   
+var max_y = 30;
+var max_x = 15;
+	
+	//this is ugly
 	function clr_mist(){
 		px_clone = px;
 		py_clone = py;
 		
 		px_clone -= 1;
 		if(px_clone >= 0){
-			if(map[px_clone][py_clone] >= 6){
-				map[px_clone][py_clone] -= 6;
+			if(map[px_clone][py_clone] > 10){
+				map[px_clone][py_clone] -= 10;
+				
+				if(map[px_clone][py_clone] != 2){
+				px_clone -= 1;
+				map[px_clone][py_clone] -= 10;
 			}
+			}else if(map[px_clone][py_clone] != 2){
+				px_clone -= 1;
+				if(map[px_clone][py_clone] > 10){
+					map[px_clone][py_clone] -= 10;
+				}
+			} 
 		}
 		
 		px_clone = px;
 		px_clone += 1;
 		
-		if(px_clone <= 9){
-			if(map[px_clone][py_clone] >= 6){
-				map[px_clone][py_clone] -= 6;
+		if(px_clone < max_x){
+			if(map[px_clone][py_clone] > 10){
+				map[px_clone][py_clone] -= 10;
+				if(map[px_clone][py_clone] != 2){
+				px_clone += 1;
+				map[px_clone][py_clone] -= 10;
+			}
+			}else if(map[px_clone][py_clone] != 2){
+				px_clone += 1;
+				if(map[px_clone][py_clone] > 10){
+					map[px_clone][py_clone] -= 10;
+				}
 			}
 		}
 		
@@ -279,126 +390,114 @@ var map = [[10,9,10,9,10,9,10,0,0,0],
 		py_clone -= 1;
 		
 		if(py_clone >= 0){
-			if(map[px_clone][py_clone] >= 6){
-				map[px_clone][py_clone] -= 6;
+			if(map[px_clone][py_clone] > 10){
+				map[px_clone][py_clone] -= 10;
+				
+				if(map[px_clone][py_clone] != 2){
+				py_clone -= 1;
+				map[px_clone][py_clone] -= 10;
+			}
+			}else if(map[px_clone][py_clone] != 2){
+				py_clone -= 1;
+				if(map[px_clone][py_clone] > 10){
+					map[px_clone][py_clone] -= 10;
+				}
 			}
 		}
 		
 		py_clone = py;
 		py_clone += 1;
-		if(py_clone <= 9){
-			if(map[px_clone][py_clone] >= 6){
-				map[px_clone][py_clone] -= 6;
+		if(py_clone < max_y){
+			if(map[px_clone][py_clone] > 10){
+				map[px_clone][py_clone] -= 10;
+				if(map[px_clone][py_clone] != 2){
+				py_clone += 1;
+				map[px_clone][py_clone] -= 10;
+			}else if(map[px_clone][py_clone] != 2){
+				py_clone += 1;
+				if(map[px_clone][py_clone] > 10){
+					map[px_clone][py_clone] -= 10;
+				}
 			}
 		}
 		
 		clr_all();
+																						console.log("wut?");
 		render_map();
+	}
 	}
 	
 	//https://medium.freecodecamp.org/how-to-make-your-own-procedural-dungeon-map-generator-using-the-random-walk-algorithm-e0085c8aa9a	   
 
 	function clr_all(){
 		var mx = 0;
-		while(mx <= 9){
- 	   	switch(mx){
- 	   		case 0: li = document.getElementById("a");
- 	   		li.innerHTML = '';
- 	   		break;
- 	   		case 1: li = document.getElementById("b");
- 	   		li.innerHTML = '';
- 	   		break;
- 	   		case 2: li = document.getElementById("c");
- 	   		li.innerHTML = '';
- 	   		break;
- 	   		case 3: li = document.getElementById("d");
- 	   		li.innerHTML = '';
- 	   		break;
- 	   		case 4: li = document.getElementById("e");
- 	   		li.innerHTML = '';
- 	   		break;
- 	   		case 5: li = document.getElementById("f");
- 	   		li.innerHTML = '';
- 	   		break;
- 	   		case 6: li = document.getElementById("g");
- 	   		li.innerHTML = '';
- 	   		break;
- 	   		case 7: li = document.getElementById("h");
- 	   		li.innerHTML = '';
- 	   		break;
- 	   		case 8: li = document.getElementById("i");
- 	   		li.innerHTML = '';
- 	   		break;
- 	   		case 9: li = document.getElementById("j");
- 	   		li.innerHTML = '';
- 	   		break;
+		var li = document.getElementById("map_id");
+		try{
+			while(mx <= max_x){
+	 	   		li.removeChild(li.childNodes[mx]);
+	 	   	}
+	 	   	mx++;
+ 	   	}catch{
+ 	   	
  	   	}
- 	   	mx++;
 	}
-	}
+	
 	
 	function render_map(){
  	   var mx = 0;
  	   var my = 0;
  	   var li;
- 	   while(mx <= 9){
- 	   	switch(mx){
- 	   		case 0: li = document.getElementById("a");
- 	   		break;
- 	   		case 1: li = document.getElementById("b");
- 	   		break;
- 	   		case 2: li = document.getElementById("c");
- 	   		break;
- 	   		case 3: li = document.getElementById("d");
- 	   		break;
- 	   		case 4: li = document.getElementById("e");
- 	   		break;
- 	   		case 5: li = document.getElementById("f");
- 	   		break;
- 	   		case 6: li = document.getElementById("g");
- 	   		break;
- 	   		case 7: li = document.getElementById("h");
- 	   		break;
- 	   		case 8: li = document.getElementById("i");
- 	   		break;
- 	   		case 9: li = document.getElementById("j");
- 	   		break;
- 	   	}
+																				 	   //console.log("mx:" + mx);
+																				 	   //console.log("max_x:" + max_x);
+ 	   while(mx <= max_x){
+ 	   																						//console.log("called" + mx);
+ 	   	li = document.getElementById("map_id");
+ 	   	var new_li = document.createElement("LI");
+		li.appendChild(new_li);
  	   	
- 	   //console.log(li);
- 	   //console.log(map[mx]);
- 	   //console.log(map[4][0]);
- 	   //console.log(mx);
- 	   //console.log(map[mx][my]);
- 	   //console.log(mx);
- 	   while(my <= 9){
- 	   //console.log(map[mx][my]);
- 	   //console.log(mx);
- 	   		switch(map[mx][my]){
- 	   			case 1: var textnode = document.createTextNode("@");
- 	   			li.appendChild(textnode);
- 	   			break;
- 	   			case 2: var textnode = document.createTextNode("+");
- 	   			li.appendChild(textnode);
- 	   			break;
- 	   			case 3: var textnode = document.createTextNode("-");
- 	   			li.appendChild(textnode);
- 	   			break;
- 	   			case 4: var textnode = document.createTextNode("*");
- 	   			li.appendChild(textnode);
- 	   			break;
- 	   			case 5: var textnode = document.createTextNode("|");
- 	   			li.appendChild(textnode);
- 	   			break;
- 	   			default: var textnode = document.createTextNode('\xa0');
- 	   			li.appendChild(textnode);
- 	   			break;
- 	   		}
- 	   		my++;
- 	   	}
+																				 	   //console.log(li);
+																				 	   //console.log(map[mx]);
+																				 	   //console.log(map[4][0]);
+																				 	   //console.log(mx);
+																				 	   //console.log(map[mx][my]);
+																				 	   //console.log(mx);
+	 	   while(my <= max_y){
+																				 	   //console.log(map[mx][my]);
+																				 	   //console.log(mx);
+		 	   	switch(map[mx][my]){
+		 	   		case 1: var textnode = document.createTextNode("@");
+		 	   		new_li.appendChild(textnode);
+		 	   		break;
+		 	  		case 2: var textnode = document.createTextNode("+");
+		 	   		new_li.appendChild(textnode);
+		 	   		break;
+		 	   		case 3: var textnode = document.createTextNode("-");
+		 	   		new_li.appendChild(textnode);
+		 	   		break;
+		 	   		case 4: var textnode = document.createTextNode("*");
+		 	   		new_li.appendChild(textnode);
+		 	   		break;
+		 	   		case 5: var textnode = document.createTextNode("|");
+		 	   		new_li.appendChild(textnode);
+		 	   		break;
+		 	   		case 6: var textnode = document.createTextNode("&");
+		 	   		new_li.appendChild(textnode);
+		 	   		break;
+		 	   		case 7: var textnode = document.createTextNode("!");
+		 	   		new_li.appendChild(textnode);
+		 	   		break;
+		 	   		case 8: var textnode = document.createTextNode(">");
+		 	   		new_li.appendChild(textnode);
+		 	   		break;
+		 	   		default: var textnode = document.createTextNode('\xa0');
+		 	   		new_li.appendChild(textnode);
+		 	   		break;
+		 	   	}
+		 	   	my++;
+	 	   }
  	   	my = 0;
  	   	mx++;
- 	    }
+ 	   }
 	}
 
 window.onload = render_map();
