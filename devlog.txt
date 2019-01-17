@@ -48,6 +48,12 @@ tianrunL -- 2019-1-9
 added command prompt to process user input
 ==============================================================
 
+timM -- 2019-1-9 12:25 PM
+--------------------------------------------------------------
+- Created most of the necessary HTML pages
+- Worked mostly on login and register
+==============================================================
+
 brianL -- 2019-1-9 12:32 PM
 --------------------------------------------------------------
 Set up skeleton of flask app and templates
@@ -68,6 +74,13 @@ boL -- 2019-1-10 12:00PM
 -tried to create a random dungeon maker, but was unsucessful
 ==============================================================
 
+timM -- 2019-1-10 12:29 PM
+--------------------------------------------------------------
+- Began working on python aspect or logging in/registering.
+- Finished up login/register/logout/redirecting in HTML pages
+- Incorporated databases
+==============================================================
+
 tianrunL -- 2019-1-11
 --------------------------------------------------------------
 added some plot
@@ -83,9 +96,22 @@ brianL -- 2019-1-14 12:15PM
 Implemented login
 ==============================================================
 
+timM -- 2019-1-14 12:23 PM
+--------------------------------------------------------------
+- Added more redirecting in python and made functions most robust
+- Cleaned up and solidified flask code
+==============================================================
+
 boL -- 2019-1-14 12:11PM
 --------------------------------------------------------------
 -added some preliminary CSS 
+==============================================================
+
+timM -- 2019-1-15 12:18 PM
+--------------------------------------------------------------
+- Found a problem with connection between registering and logging in
+with the database. Fixed it.
+- Modified HTML pages and python to allow password confirmation
 ==============================================================
 
 tianrunL  -- 2019-1-15
@@ -101,6 +127,14 @@ boL -- 2019-1-15 6:20PM
 tianrunL -- 2019-1-16
 --------------------------------------------------------------
 finished traversing map component, but still buggy
+==============================================================
+
+timM -- 2019-1-16 12:26 PM
+--------------------------------------------------------------
+- fixed userMethods.py in util folder since it was causing
+database errors.
+- created profile.html and made a successful login redirect to 
+it.
 ==============================================================
 
 brianL -- 2019-1-16 9:00PM
@@ -124,4 +158,17 @@ brianL -- 2019-1-16 12:00PM
 --------------------------------------------------------------
 Fixed movement handling code
 Prompt now doesn't go wild and stretch things around when adding text
+==============================================================
+
+brianL -- 2019-1-17 12:18AM
+--------------------------------------------------------------
+Prettier CSS
+Login check on game
+==============================================================
+
+timM -- 2019-1-10 12:22 PM
+--------------------------------------------------------------
+- Added to app.py and HTML pages to allow users to access the
+game from the profile page.
+- Edited base.html for robustness.
 ==============================================================
