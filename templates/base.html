@@ -12,10 +12,10 @@
         {% block header %}{% endblock %}
     </head>
     <body class="container text-center border rounded mt-5">
-        <a href="/" class="display-4 text-success font-weight-bold m-1">
+        <a href="/" class="display-4 text-success font-weight-bold">
             Mykolyk's Ultimate Dictionary
         </a>
-        <div class="center-block bg-light border rounded">
+        <div class="center-block bg-light border rounded m-3">
             {% block alerts %}
             {% with msgs = get_flashed_messages(with_categories=true) %}
                 {% for category, message in msgs %}
