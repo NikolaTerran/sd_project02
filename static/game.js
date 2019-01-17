@@ -25,122 +25,51 @@ function return_input(event){
 
 function process_command(){
     if(sp_event == 0){
-
-        if(user_input === "west"){
-            print("you walked toward west.");
-            //plot("west");
-            if(py > 0){
-                py--;
-                if(map[px][py] != 0){
-                    if(map[px][py] != 2){
-                        py--;
-                        map[cx][cy] = cv;
-                        cv = map[px][py];
-                        map[px][py] = 1;
-                        cx = px;
-                        cy = py;
-                        clr_mist();}
-                    else{
-                        py++;
-                        print("you bumped into a door.");
-                    }
-                }
-                else{
-                    py++;
-                    print("you bumped into a wall.");
-                }
+        if (user_input == "w"){
+            user_input = "west";
+        }
+        else if (user_input == "e"){
+            user_input = "east";
+        }
+        else if (user_input == "s"){
+            user_input = "south";
+        }
+        else if (user_input == "n"){
+            user_input = "north";
+        }
+        movement_options = ["west", "east", "south", "north"];
+        if(movement_options.includes(user_input)){
+            print("you walked toward " + user_input + ".");
+            x_offset = 0;
+            y_offset = 0;
+            if(user_input === "west"){
+                y_offset = -1;
+            }
+            else if(user_input === "east"){
+                y_offset = 1;
+            }
+            else if(user_input === "south"){
+                x_offset = 1;
+            }
+            else if(user_input === "north"){
+                x_offset = -1;
+            }
+            if(px + x_offset < 0 || px + x_offset >= max_x ||
+               py + y_offset < 0 || py + y_offset >= max_y ||
+                map[px + x_offset][py + y_offset] == 0){
+                print("you bumped into a wall.");
+            }
+            // doors can only opened by kicking
+            else if(map[px + x_offset][py + y_offset] == 2){
+                print("you bumped into a door. (hint: try kicking)");
             }
             else{
-                print("you bumped into a wall.");
-            }
-
-
-        }
-        else if(user_input === "east"){
-            print("you walked toward east.");
-            //plot("east");
-
-
-            if(py < max_y){
-                py++;
-                if(map[px][py] != 0){
-                    if(map[px][py] != 2){
-                        py++;
-                        map[cx][cy] = cv;
-                        cv = map[px][py];
-                        map[px][py] = 1;
-                        cx = px;
-                        cy = py;
-                        clr_mist();
-                    }else{
-                    	py--;
-                        print("you bumped into a door.");
-                    }
-                }else{
-                    py--;
-                    print("you bumped into a wall.");
-                }
-            }else{
-                print("you bumped into a wall.");
-            }
-
-
-        }
-        else if(user_input === "south"){
-            print("you walked toward south.");
-            //plot("south");
-
-
-            if(px < max_x){
-                px++;
-                if(map[px][py] != 0){
-                    if(map[px][py] != 2){
-                        px++;
-                        map[cx][cy] = cv;
-                        cv = map[px][py];
-                        map[px][py] = 1;
-                        cx = px;
-                        cy = py;
-                        clr_mist();
-                    }else{
-                        px--;
-                        print("you bumped into a door.");
-                    }
-                }else{
-                    px--;
-                    print("you bumped into a wall.");
-                }	
-            }else{
-                print("you bumped into a wall.");
-            }
-
-
-        }
-        else if(user_input === "north"){
-            print("you walked toward north.");
-            //plot("north");
-            if(px > 0){
-                px--;
-                if(map[px][py] != 0){
-                    if(map[px][py] != 2){
-                        px--;
-                        map[cx][cy] = cv;
-                        cv = map[px][py];
-                        map[px][py] = 1;
-                        cx = px;
-                        cy = py;
-                        clr_mist();
-                    }
-                    else{
-                        px++;
-                        print("you bumped into a door.");
-                    }
-                }else{
-                    px++;
-                    print("you bumped into a wall.");
-                }
-            }else{
-                print("you bumped into a wall.");
+                map[px][py] = cv;
+                px += x_offset;
+                py += y_offset;
+                cv = map[px][py];
+                map[px][py] = 1;
+                clr_mist();
             }
         }
         else if(user_input === "kick"){
@@ -149,11 +78,12 @@ function process_command(){
             //open_d();
             //print("you kicked.");
             //plot("kick");
-
-        }else{
+        }
+        else{
             print("invalid command.");
         }
-    }else if(sp_event == 1){
+    }
+    else if(sp_event == 1){
         open_d();
     }
 }
@@ -180,11 +110,6 @@ function open_d(x,y){
     }
 }
 
-function magic_door(){
-
-}
-
-
 
 function print(say_what){
     if(text_limit == 10){
@@ -206,8 +131,6 @@ function print(say_what){
 var px = 4;
 var py = 0;
 
-var cx = 4;
-var cy = 0;
 var cv = 4;
 
 var plot_check = 0;
