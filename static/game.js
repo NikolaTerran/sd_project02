@@ -1,3 +1,4 @@
+
 var rapidapikey;
 
 var plot_point = 0;
@@ -87,6 +88,45 @@ function process_command(){
 		        clr_mist();
 			sp_event = 2;
 			
+var dict = (function (){
+var url = "https://wordsapiv1.p.rapidapi.com/words/?lettersMin=1&lettersMax=13&hasDetails=definitions&random=true";
+var dict = [];
+$.ajax({
+  async: false,
+  global: false,
+  url: url,
+  method: 'GET',
+  dataType: 'JSON',
+   headers: {           //hard code api key
+    "X-RapidAPI-Key":"ooreG0SW0YmshcfShlO6cb32JSVWp1lQoYDjsnllIJsCcvyHs5"
+  },
+  success: function(data) {
+    console.log(data);
+    dict[0] = data.word.toString();
+    dict[1] = data.results[0].definition.toString();
+  },
+  error: function(err) {
+    console.log('error:' + err)
+  }
+})
+	return dict;
+})();
+
+console.log(dict[0]);
+var count = dict[0].length;
+	//console.log(count);
+	//console.log(win_cond);
+
+	
+	while(count > 0){		
+		str[count] = dict[0].substring(0,1);
+		ans[count] = str[count];
+		dict[0] = dict[0].substring(1);
+		count--;
+	}
+	
+	//console.log(str);
+
 			print("fight!");
 			print("what is the word?");
 			print("definition " + dict[1]);
@@ -111,22 +151,43 @@ function process_command(){
     	
     	var win_check = 0;
     	var count = str.length;
+	var hit = 0;
     	while(count >= 0){
-    		if(str[count] === "$"){
+    		if(str[count] === "$" || str[count] === " " || str[count] === "-" || str[count] === "\'"){
     			win_check ++;
-    			console.log(str.length);
+    			console.log("str.len: " + str.length);
     		}
     	
 			if(user_input === str[count]){
 				//win_cond--;
 				str[count] = "$";
 				render_combat();
-				console.log(win_check);
+				console.log("win_c: " + win_check);
+				count--;
+				hit = 1;
 			}else{
 			  count--;
 			}
     	}
-    }
+	if(hit == 0){
+		hp--;
+		print("ahh! You hp are now at (" + hp + "/" + hp_max + ")");
+	}
+	if(win_check == str.length - 2){
+		print("you win!");
+		hp = hp_max;
+		sp_event = 0;
+	}
+	if(hp == 0){
+		print("game over! type \"restart\" to continue...");
+		sp_event = 4;
+	}
+    }else if(sp_event == 4){
+		if(user_input === "restart"){
+			window.location.reload(false); 
+		}
+	
+	}
 }
 
 //wisdom: https://stackoverflow.com/questions/28933486/javascript-array-undefined-error
@@ -134,6 +195,15 @@ function process_command(){
 
 var str = [];
 var ans = [];
+
+
+
+//wisdom: https://stackoverflow.com/questions/10262356/jquery-return-from-function
+//https://stackoverflow.com/questions/45261255/how-to-use-an-api-key-for-an-ajax-call
+//https://stackoverflow.com/questions/2177548/load-json-into-variable
+
+
+
 
 
 function render_combat(){
@@ -145,27 +215,12 @@ function render_combat(){
 	}catch{console.log("uh-on");}
 	ul.appendChild(li);
 	
-	//console.log(dict[0].length);
-	console.log(dict[0]);
-	
 	
 
 	
 	
-	var count = dict[0].length;
-	//console.log(count);
-	//console.log(win_cond);
-	win_cond = count;
 	
-	while(count > 0){		
-		str[count] = dict[0].substring(0,1);
-		ans[count] = str[count];
-		dict[0] = dict[0].substring(1);
-		count--;
-	}
-	
-	//console.log(str);
-	count = str.length - 1;
+	var count = str.length - 1;
 	
 	while(count > 0){
 		if(str[count] == " "){
@@ -249,7 +304,8 @@ function print(say_what){
 	prompt_wrapper.scrollTop = prompt_wrapper.scrollHeight - prompt_wrapper.clientHeight;
 }
 
-
+var hp_max = 6;
+var hp = 6;
 
 var plot_check = 0;
 function plot(input){
@@ -290,6 +346,14 @@ function plot(input){
 
 window.onload = plot("hi");
 
+function ran_gen(){
+	cv = 4;
+	px = Math.floor(Math.random() * max_x);
+	py = Math.floor(Math.random() * max_y);
+	
+	
+
+}
 
 //0 == space
 //1 11== @;
@@ -507,42 +571,8 @@ function render_map(){
 window.onload = render_map();
 
 
-var wd = "";
-var def = "";
-//wisdom: https://stackoverflow.com/questions/10262356/jquery-return-from-function
-//https://stackoverflow.com/questions/45261255/how-to-use-an-api-key-for-an-ajax-call
-//https://stackoverflow.com/questions/2177548/load-json-into-variable
-
-var dict = (function (){
-var url = "https://wordsapiv1.p.rapidapi.com/words/?lettersMin=1&lettersMax=13&hasDetails=definitions&random=true";
-var dict = [];
-$.ajax({
-  async: false,
-  global: false,
-  url: url,
-  method: 'GET',
-  dataType: 'JSON',
-   headers: {           //hard code api key
-    "X-RapidAPI-Key":"ooreG0SW0YmshcfShlO6cb32JSVWp1lQoYDjsnllIJsCcvyHs5"
-  },
-  success: function(data) {
-    console.log(data);
-    dict[0] = data.word.toString();
-    dict[1] = data.results[0].definition.toString();
-    console.log(def);
-  },
-  error: function(err) {
-    console.log('error:' + err)
-  }
-})
-	return dict;
-})();
-
-var win_cond = dict[0].length;
 /*
 it's not working!
-
-
 function load_key() {
     var req = new XMLHttpRequest();
     req.open("GET", "static/rapidapikey");
@@ -558,5 +588,4 @@ function load_key() {
     }
     req.send();
 }
-
 load_key(); */
