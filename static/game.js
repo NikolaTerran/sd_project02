@@ -85,7 +85,11 @@ function process_command(){
 			cv = mon_search();
 			map[px][py] = 9;
 		        clr_mist();
-		
+			sp_event = 2;
+			
+			print("fight!");
+			print("what is the word?");
+			render_combat();
 		}
             }
         }
@@ -102,7 +106,29 @@ function process_command(){
     }
     else if(sp_event == 1){
         open_d();
+    }else if(sp_event == 2){
+    	
+    	//console.log(wd[0]);
     }
+}
+
+//wisdom: https://stackoverflow.com/questions/28933486/javascript-array-undefined-error
+//https://www.w3schools.com/js/js_mistakes.asp
+
+function render_combat(){
+	var ul = document.getElementById("combat");
+	var li = document.createElement("LI");
+	ul.appendChild(li);
+	
+	console.log(dict[0].length);
+	console.log(dict[1]);
+	print(dict[1]);
+	var count = dict[0].length;
+	while(count > 0){
+		var txt = document.createTextNode("_\xa0");
+		li.appendChild(txt);
+		count--;
+	}	
 }
 
 function mon_search(){
@@ -417,32 +443,41 @@ function render_map(){
 window.onload = render_map();
 
 
-var wd = [];
-
+var wd = "";
+var def = "";
 //wisdom: https://stackoverflow.com/questions/10262356/jquery-return-from-function
 //https://stackoverflow.com/questions/45261255/how-to-use-an-api-key-for-an-ajax-call
+//https://stackoverflow.com/questions/2177548/load-json-into-variable
 
-function get_word(){
+var dict = (function (){
 var url = "https://wordsapiv1.p.rapidapi.com/words/?lettersMin=1&lettersMax=13&hasDetails=definitions&random=true";
+var dict = [];
 $.ajax({
+  async: false,
+  global: false,
   url: url,
   method: 'GET',
   dataType: 'JSON',
-   headers: {
-    "X-RapidAPI-Key": rapidapikey
+   headers: {           //hard code api key
+    "X-RapidAPI-Key":"ooreG0SW0YmshcfShlO6cb32JSVWp1lQoYDjsnllIJsCcvyHs5"
   },
   success: function(data) {
-    //console.log(data);
-    wd.push(data.word);
-    wd.push(data.results[0].definition);
-
+    console.log(data);
+    dict[0] = data.word.toString();
+    dict[1] = data.results[0].definition.toString();
+    console.log(def);
   },
   error: function(err) {
     console.log('error:' + err)
   }
 })
-	console.log(wd);
-}
+	return dict;
+})();
+
+
+/*
+it's not working!
+
 
 function load_key() {
     var req = new XMLHttpRequest();
@@ -460,4 +495,4 @@ function load_key() {
     req.send();
 }
 
-load_key();
+load_key(); */
