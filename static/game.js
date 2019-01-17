@@ -72,6 +72,7 @@ function process_command(){
                         cy = py;
                         clr_mist();
                     }else{
+                    	py--;
                         print("you bumped into a door.");
                     }
                 }else{
