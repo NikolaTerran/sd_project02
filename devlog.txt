@@ -119,3 +119,9 @@ boL -- 2019-1-16 11:20PM
 --------------------------------------------------------------
 -fixed up readme, design doc, and documents dir to reflect our API changes
 ==============================================================
+
+brianL -- 2019-1-16 12:00PM
+--------------------------------------------------------------
+Fixed movement handling code
+Prompt now doesn't go wild and stretch things around when adding text
+==============================================================
