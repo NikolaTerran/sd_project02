@@ -1,5 +1,3 @@
-var text_limit = 0;
-
 var plot_point = 0;
 
 var user_input = "";
@@ -96,6 +94,18 @@ var sp_event = 0;
 function open_d(x,y){
     pxc = px;
     pyc = py;
+    if (user_input == "w"){
+        user_input = "west";
+    }
+    else if (user_input == "e"){
+        user_input = "east";
+    }
+    else if (user_input == "s"){
+        user_input = "south";
+    }
+    else if (user_input == "n"){
+        user_input = "north";
+    }
     try{
         if(user_input === "north"){pxc--; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3;print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
         else if(user_input === "south"){pxc++; if(map[pxc][pyc] == 2){ map[pxc][pyc] = 3; print("door opens.");}else if(map[pxc][pyc] == 0){print("ouch, that hurts!");}else{print("you kicked at empty space.");} }
@@ -112,21 +122,13 @@ function open_d(x,y){
 
 
 function print(say_what){
-    if(text_limit == 10){
-        var new_li = document.createElement("LI");
-        var textnode = document.createTextNode(say_what);
-        select_prompt.removeChild(select_prompt.childNodes[0]);
-        new_li.appendChild(textnode);
-        select_prompt.appendChild(new_li);
-    }else{
-        var new_li = document.createElement("LI");
-        var textnode = document.createTextNode(say_what);
-        new_li.appendChild(textnode);
-        select_prompt.appendChild(new_li);
-        text_limit++;
-    }
+    var new_li = document.createElement("LI");
+    var textnode = document.createTextNode(say_what);
+    new_li.appendChild(textnode);
+    select_prompt.appendChild(new_li);
+	var prompt_wrapper = document.getElementById("prompt_wrapper");
+	prompt_wrapper.scrollTop = prompt_wrapper.scrollHeight - prompt_wrapper.clientHeight;
 }
-
 
 var px = 4;
 var py = 0;
@@ -213,8 +215,8 @@ var map = [[17,13,14,13,17,13,14,0 ,0 ,0 ],
 
 
 //max map dimension		   
-var max_y = 30;
-var max_x = 15;
+var max_y = map.length;
+var max_x = map[0].length;
 
 //this is ugly
 function clr_mist(){
@@ -329,62 +331,54 @@ function render_map(){
     var my = 0;
     var li;
     //console.log("mx:" + mx);
-    try{																		 	   //console.log("max_x:" + max_x);
-        while(mx <= max_x){
-            //console.log("called" + mx);
-            li = document.getElementById("map_id");
-            var new_li = document.createElement("LI");
-            li.appendChild(new_li);
+    while(mx < max_x){
+        //console.log("called" + mx);
+        li = document.getElementById("map_id");
+        var new_li = document.createElement("LI");
+        li.appendChild(new_li);
 
-            //console.log(li);
-            //console.log(map[mx]);
-            //console.log(map[4][0]);
-            //console.log(mx);
+        //console.log(li);
+        //console.log(map[mx]);
+        //console.log(map[4][0]);
+        //console.log(mx);
+        //console.log(map[mx][my]);
+        //console.log(mx);
+        while(my < max_y){
             //console.log(map[mx][my]);
-            //console.log(mx);
-            try{
-                while(my <= max_y){
-                    //console.log(map[mx][my]);
-                    //console.log(mx);
-                    switch(map[mx][my]){
-                        case 1: var textnode = document.createTextNode("@");
-                                new_li.appendChild(textnode);
-                                break;
-                        case 2: var textnode = document.createTextNode("+");
-                                new_li.appendChild(textnode);
-                                break;
-                        case 3: var textnode = document.createTextNode("-");
-                                new_li.appendChild(textnode);
-                                break;
-                        case 4: var textnode = document.createTextNode("*");
-                                new_li.appendChild(textnode);
-                                break;
-                        case 5: var textnode = document.createTextNode("|");
-                                new_li.appendChild(textnode);
-                                break;
-                        case 6: var textnode = document.createTextNode("&");
-                                new_li.appendChild(textnode);
-                                break;
-                        case 7: var textnode = document.createTextNode("!");
-                                new_li.appendChild(textnode);
-                                break;
-                        case 8: var textnode = document.createTextNode(">");
-                                new_li.appendChild(textnode);
-                                break;
-                        default: var textnode = document.createTextNode('\xa0');
-                                 new_li.appendChild(textnode);
-                                 break;
-                    }
-                    my++;
-                }
-                my = 0;
-                mx++;
-            }catch{
-                my = 0;
-                mx++;
+            switch(map[mx][my]){
+                case 1: var textnode = document.createTextNode("@");
+                        new_li.appendChild(textnode);
+                        break;
+                case 2: var textnode = document.createTextNode("+");
+                        new_li.appendChild(textnode);
+                        break;
+                case 3: var textnode = document.createTextNode("-");
+                        new_li.appendChild(textnode);
+                        break;
+                case 4: var textnode = document.createTextNode("*");
+                        new_li.appendChild(textnode);
+                        break;
+                case 5: var textnode = document.createTextNode("|");
+                        new_li.appendChild(textnode);
+                        break;
+                case 6: var textnode = document.createTextNode("&");
+                        new_li.appendChild(textnode);
+                        break;
+                case 7: var textnode = document.createTextNode("!");
+                        new_li.appendChild(textnode);
+                        break;
+                case 8: var textnode = document.createTextNode(">");
+                        new_li.appendChild(textnode);
+                        break;
+                default: var textnode = document.createTextNode('\xa0');
+                         new_li.appendChild(textnode);
+                         break;
             }
+            my++;
         }
-    }catch{}
+        my = 0;
+        mx++;
+    }
 }
 
 window.onload = render_map();
