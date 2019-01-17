@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+
+
 {% block header %}
+
+<head>
+
 <style>
 .terminal {
     background-color: #303133;
@@ -11,15 +16,19 @@
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+
 {% endblock %}
 
 {% block body %}
-<div class="container"> 
+<div class="container">
     <div class="row m-4">
         <div class="col">
             <ul class="list-unstyled terminal" id="map_id"></ul>
             <input class="m-4" id="cmd" type="text" value="type your commands here">
         </div>
+
         <div class="col-0.5">
         </div>
         <div class="col terminal text-left pre-scrollable" id="prompt_wrapper">
@@ -31,6 +40,5 @@
     	</ul>
     </div>
 </div>
-
 <script src="{{ url_for('static', filename='game.js')}}"></script>
 {% endblock %}

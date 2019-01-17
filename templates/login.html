@@ -6,22 +6,34 @@ Login
 
 
 {% block body %}
+<body>
 
   <center>
-    <p>
-	<form action="/login" method="POST">
-	  <div class="form-group">
-	    <label for="exampleInputUsername">Username</label>
-	    <input type="text" name="username" class="form-control" id="exampleInputUsername" placeholder="Enter username" style="width: 300px">
-	  </div>
-	  <div class="form-group">
-	    <label for="exampleInputPassword1">Password</label>
-	    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password" style="width: 300px">
-	  </div>
-	  <button type="submit" value="Submit" class="btn btn-primary">Login</button>
-	</form>
-      Don't have an account? Create one <a href="/register">here</a>.
+
+      <h1>
+	       <p class="text-info">Team PythonScript</p>
+	        <p class="text-success">Mykolyk's Ultimate Dictionary</p>
+      </h1>
+
+	       <form action="/login" method="POST">
+
+	          <div class="form-group">
+	             <label for="exampleInputUsername">Username</label>
+	              <input type="text" name="username" class="form-control" id="exampleInputUsername" placeholder="Enter username" style="width: 300px">
+	          </div>
+
+	          <div class="form-group">
+	             <label for="exampleInputPassword1">Password</label>
+	             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password" style="width: 300px">
+	          </div>
+
+	          <button type="submit" value="Submit" class="btn btn-primary">Login</button>
+
+	       </form>
+         Don't have an account? Create one <a href="/register">here</a>
+
   </center>
 
 </body>
+
 {% endblock %}
