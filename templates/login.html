@@ -5,19 +5,14 @@ Login
 {% endblock %}
 
 
-<!-- {% block body %} -->
+{% block body %}
 
-<body background="https://cdn-02.independent.ie/world-news/and-finally/article36675155.ece/c261e/AUTOCROP/w620/ipanews_a5b36655-afb2-4d5a-b4e2-fedfbd38de89_1">
   <center>
-
-      
       <h1>
 	<p class="text-info">Team PythonScript</p>
 	<p class="text-success">Mykolyk's Ultimate Dictionary</p>
       </h1>
-    
     <p>
-	
 	<form action="/login" method="POST">
 	  <div class="form-group">
 	    <label for="exampleInputUsername">Username</label>
@@ -29,11 +24,8 @@ Login
 	  </div>
 	  <button type="submit" value="Submit" class="btn btn-primary">Login</button>
 	</form>
-	
-
       Don't have an account? Create one <a href="/register">here</a>.
-
   </center>
 
 </body>
-<!-- {% endblock %} -->
+{% endblock %}

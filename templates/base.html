@@ -4,19 +4,16 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <title> {% block title %} Mykolyk's Ultimate Dictionary {% endblock %} </title>
+        {% block header %}{% endblock %}
     </head>
-
-    <body>
+    <body class="bg-dark text-white">
         {% block alerts %}
-
         {% with msgs = get_flashed_messages(with_categories=true) %}
             {% for category, message in msgs %}
                 <div class="alert alert-{{ category }}" role="alert">{{message}} </div>
             {% endfor %}
         {% endwith %}
-
         {% endblock %}
-
         {% block body %}
         bar
         {% endblock %}
