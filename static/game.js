@@ -121,7 +121,7 @@ for (var count = 0; count < ans_s.length; count++) {
 
 print("fight!");
 print("what is the word?");
-print("definition " + dict[1]);
+print("DEFINITION::: " + dict[1]);
 render_combat();
 }
 }
@@ -174,6 +174,7 @@ else if(sp_event == 1){
     }
     if(win_check == str.length - 1){
         print("you win!");
+        clear_combat();
         hp = hp_max;
         sp_event = 0;
     }
@@ -200,6 +201,11 @@ var ans_s = "";
 //wisdom: https://stackoverflow.com/questions/10262356/jquery-return-from-function
 //https://stackoverflow.com/questions/45261255/how-to-use-an-api-key-for-an-ajax-call
 //https://stackoverflow.com/questions/2177548/load-json-into-variable
+
+function clear_combat(){
+    var combat_screen = document.getElementById("combat");
+    combat_screen.innerHTML = '';
+}
 
 function render_combat(){
     var combat_screen = document.getElementById("combat");
@@ -320,8 +326,6 @@ function plot(input){
         case 4: break;
     }
 }
-
-
 
 window.onload = plot("hi");
 
