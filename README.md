@@ -16,8 +16,9 @@
 
 2. Git clone < use link below >
 
-...SSH LINK: git@github.com:TianrunLiu/sd_project02.git
-...HTTPS LINK: https://github.com/TianrunLiu/sd_project02.git
+   SSH LINK: git@github.com:TianrunLiu/sd_project02.git
+ 
+   HTTPS LINK: https://github.com/TianrunLiu/sd_project02.git
 
 3. python app.py
 
@@ -26,9 +27,9 @@
 
 1. WordAPI: [Link to Documentation](https://rapidapi.com/wordsapi/api/wordsapi)
 
-...This API allows use to obtain words for us to use as the words that our character collects in the game.
+   This API allows use to obtain words for us to use as the words that our character collects in the game.
 
-...DIRECTIONS: OBTAIN THY API KEY FROM THE LINK ABOVE AND THEN COPY IT INTO A FILE CALLED "rapidapikey" IN THE STATIC DIRECTORY
+   DIRECTIONS: OBTAIN THY API KEY FROM THE LINK ABOVE AND THEN COPY IT INTO A FILE CALLED "rapidapikey" IN THE STATIC DIRECTORY.
 
 
 
