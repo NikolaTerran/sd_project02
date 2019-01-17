@@ -1,39 +1,56 @@
 <!DOCTYPE html>
+
 <html class="bg-dark">
+
     <head>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
         <style>
-		a, a:hover, a:focus {
-			text-decoration: none;
-		}
+		      a, a:hover, a:focus {
+			         text-decoration: none;
+		      }
         </style>
+
         <title> {% block title %} Mykolyk's Ultimate Dictionary {% endblock %} </title>
 
         {% block header %}{% endblock %}
 
     </head>
+
     <body class="container text-center border rounded mt-5">
+
         <a href="/" class="display-4 text-success font-weight-bold">
             Mykolyk's Ultimate Dictionary
         </a>
+
         <div class="center-block bg-light border rounded m-3">
+
             {% block alerts %}
+
             {% with msgs = get_flashed_messages(with_categories=true) %}
                 {% for category, message in msgs %}
                     <div class="alert alert-{{ category }}" role="alert">{{message}} </div>
                 {% endfor %}
             {% endwith %}
+
             {% endblock %}
+
+
             {% block body %}
             bar
             {% endblock %}
+
             <hr height=10px>
+
             <p class="text-muted">
                 By Team PythonScript
             </p>
+
         </div>
+        
     </body>
 
 </html>
