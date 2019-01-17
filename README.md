@@ -23,7 +23,7 @@
 
 ### API:
 
-1. <...>
-
+1. WordAPI: [Link to Documentation](https://rapidapi.com/wordsapi/api/wordsapi)
+... This API allows use to obtain words for us to use as the words that our character collects in the game.
 
 
