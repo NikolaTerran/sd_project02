@@ -138,7 +138,11 @@ ans = [];
         else if(user_input === "down"){
         	if(cv == 8){
         		print("you walked down stairs.");	
-        		ran_gen();
+        		px = 4;
+        		py = 0;
+        		cv = 4;
+        		print("we tried generating a random maze, however there is still some issue. Maybe you can check back for 1.1 release. Mean while, why not challenge yourself with more puzzles? ¯\\_(ツ)_/¯");
+        		render_map();
         	}else{
         		print("you can't go down from here!");
         	}
@@ -346,7 +350,7 @@ function mp_clr(){
 
         while(my < max_y){
             map[mx][my] = 0;
-            console.log("[mx]: " + mx + " [my]: " + my);
+            //console.log("[mx]: " + mx + " [my]: " + my);
             my++;
         }
         my = 0;
@@ -354,8 +358,16 @@ function mp_clr(){
     }
 }
 
+/*
+       2
+   1       0
+       3
+*/
+/*
 function ran_gen(){
 	mp_clr();
+	clr_all();
+	render_map();
 	cv = 4;
 	px = Math.floor(Math.random() * max_x);
 	py = Math.floor(Math.random() * max_y);
@@ -363,105 +375,133 @@ function ran_gen(){
 	var pyc = py;
 	map[px][py] = 1;
 	
+	//var vt = 1;
 	
+	//var step = 1;
+	//var cd = 0;
 	
-	var vt = 1;
+	var dir = ran_dir();
+	var dir2 = dir;
+	var dir3 = dir;
+	var dir4 = dir;
 	
-	var step = 1;
-	var cd = 0;
+	while(dir2 == dir){
+		dir2 = ran_dir();
+	}
+	
+	while(dir3 == dir || dir3 == dir2){
+		dir3 = ran_dir();
+	}
+	
+	while(dir4 == dir || dir4 == dir2 || dir4 == dir3){
+		dir4 = ran_dir();
+	}
 	
 	var ray = [];
-						ray[0] = 0;
-						ray[1] = 0;
-						ray[2] = 0;
-						ray[3] = 0;
-					
-					if((pxc + 1) > (max_x - 1) && map[pxc + 1][pyc] != 0){
-						ray[0] = 1;
-					}
-					
-					if((pxc - 1) < 0 && map[pxc - 1][pyc] != 0){
-						ray[1] = 1;
-					}
-					
-					if((pyc + 1) > (max_y - 1) && map[pxc][pyc + 1] != 0){
-						ray[1] = 1;
-					}
-					
-					if((pyc - 1) < 0 && map[pxc][pyc - 1] != 0){
-						ray[1] = 1;
-					}
-					
-	go(pxc,pyc,ray[0],ray[1],ray[2],ray[3],step,vt);
+		        ray[0] = 0;
+			ray[1] = 1;
+			ray[2] = 2;
+			ray[3] = 3;
 		
+		if((pxc + 1) > (max_x - 1)){
+			ray[0] = 5;
+		}
+		
+		if((pxc - 1) < 0 ){
+			ray[1] = 5;
+		}
+		
+		if((pyc - 1) < 0  ){
+			ray[2] = 5;
+		}
+		
+		if((pyc + 1) > (max_y - 1) ){
+			ray[3] = 5;
+		}
+	
+	go(pxc,pyc,ray[0]) //,step,vt);
+	//go(pxc,pyc,ray[1]) //,step,vt);
+	//go(pxc,pyc,ray[2]) //,step,vt);
+	//go(pxc,pyc,ray[3]) //,step,vt);
+	
 	render_map();
-	
-	
-
-	
-	
 }
 
-function go(x,y,e,w,s,n,step,vt){
+function go(x,y,d){
 
-		dir = ran_dir();
-		switch(dir){
-				case 0: if(n != 1){pxc--;} break;  
-				case 1: if(s != 1){pxc++;} break;
-				case 2: if(w != 1){pyc--; vt = 0;} break;
-				case 3: if(e != 1){pyc++; vt = 0;} break;
+	//render_map();
+		var dir = ran_dir();
+		switch(d){
+				case 0: x--; break;  
+				case 1: x++; break;
+				case 2: y--; break;
+				case 3: y++; break;
+		}
+		
+		
+	
+		if(map[x][y] == 0){
+			map[x][y] = 14;
 		}
 	
-		if(map[pxc][pyc] == 0){
-		if(step == 0){
-			map[pxc][pyc] = 14;
-		}else if(vt == 0){
-			map[pxc][pyc] = 13;
-		}else if(vt == 1){
-			map[pxc][pyc] = 15;
-			}
-		}
-	
+		var fails = 0;
 					var fail = [];
 						fail[0] = 0;
-						fail[1] = 0;
-						fail[2] = 0;
-						fail[3] = 0;
+						fail[1] = 1;
+						fail[2] = 2;
+						fail[3] = 3;
 					
-					if((pxc + 1) < max_x && map[pxc + 1][pyc] != 0){
-						fail[0] = 1;
+					if((x - 2) < 0){
+						fail[0] = 4;
+						fails++;
+					}else if(map[x - 2][y] != 0){
+						fail[0] = 4;
+						fails++;
 					}
 					
-					if((pxc - 1) >= 0 && map[pxc - 1][pyc] != 0){
-						fail[1] = 1;
+					if((x + 2) > max_x ){
+						fail[1] = 4;
+						fails++;
+					}else if(map[x + 2][y] != 0){
+						fail[1] = 4;
+						fails++;
 					}
 					
-					if((pyc + 1) < max_y && map[pxc][pyc + 1] != 0){
-						fail[1] = 1;
+					
+					
+					if((y - 2) < 0){
+						fail[2] = 4;
+						fails++;
+					}else if(map[x][y + 2] != 0){
+						fail[2] = 4;
+						fails++;
 					}
 					
-					if((pyc - 1) >= 0 && map[pxc][pyc - 1] != 0){
-						fail[1] = 1;
+					if((y + 2) > max_y){
+						fail[3] = 4;
+						fails++;
+					}else if(map[x][y - 2] != 0){
+						fail[3] = 4;
+						fails++;
 					}
 	
-		if(fail > 3){
+		console.log(fails);
+		if(fails > 3){
 			
 		}else{
-			go(pxc,pyc,fail[0],fail[1],fail[2],fail[3]);
+			if(fail[0] != 4){
+				go(x,y,fail[0]);
+			} 
+			if(fail[1] != 4){
+				go(x,y,fail[1]);
+			}
+			if(fail[2] != 4){
+				go(x,y,fail[2]);
+			}
+			if(fail[3] != 4){
+				go(x,y,fail[2]);
+			}
 		}
-    mp_clr();
-    cv = 4;
-    px = Math.floor(Math.random() * max_x);
-    py = Math.floor(Math.random() * max_y);
-    map[px][py] = 1;
-
-    dir = ran_dir();
-    switch(dir){
-        case 0:  
-        case 1:
-        case 2:
-        case 3:
-    }	
 }
 
 function ran_dir(){
@@ -473,6 +513,7 @@ function ran_mon(){
 
 }
 
+*/
 //0 == space
 //1 11== @;
 //2 12== +;
