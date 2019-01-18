@@ -146,31 +146,12 @@ ans = [];
 }
 
 //console.log(str);
-
+/*
 print("fight! guess the word!");
 print("DEFINITION:::");
 print(dict[1]);
 render_combat();
-}
-}
-}
-else if(user_input === "kick"){
-    print("which direction?");
-    sp_event = 1;
-    //open_d();
-    //print("you kicked.");
-    //plot("kick");
-}
-else if(user_input === "down"){
-    if(cv == 8){
-        ran_gen();
-    }else{
-        print("you can't go down from here!");
-    }
-}
-else{
-    print("invalid command.");
-}
+*/
 }
 else if(sp_event == 1){
     open_d();
@@ -181,14 +162,15 @@ else if(sp_event == 1){
     var hit = 0;
     while(count >= 0){
         if(str[count] === "$" || str[count] === " " || str[count] === "-" || str[count] === "\'"){
-            win_check ++;
+            win_check++;
             console.log("str.len: " + str.length);
+            console.log("win_c: " + win_check);
         }
         if(user_input === str[count]){
             //win_cond--;
             str[count] = "$";
             render_combat();
-            console.log("win_c: " + win_check);
+            
             count--;
             hit = 1;
         }else{
@@ -199,9 +181,9 @@ else if(sp_event == 1){
         hp--;
         print("ahh! Your hp is now at (" + hp + "/" + hp_max + ")");
     }
-    if(win_check == str.length - 1){
+    if(win_check >= (str.length - 1)){
         print("you win!");
-        clear_combat();
+        //clear_combat();
         hp = hp_max;
         sp_event = 0;
     }
@@ -220,6 +202,8 @@ else if(sp_event == 1){
 
 //wisdom: https://stackoverflow.com/questions/28933486/javascript-array-undefined-error
 //https://www.w3schools.com/js/js_mistakes.asp
+
+
 
 var str = [];
 var ans = [];
@@ -371,7 +355,6 @@ function mp_clr(){
 }
 
 function ran_gen(){
-<<<<<<< HEAD
 	mp_clr();
 	cv = 4;
 	px = Math.floor(Math.random() * max_x);
@@ -704,7 +687,7 @@ function render_map(){
 }
 
 window.onload = render_map();
-
+window.onload = clr_mist();
 
 function load_key() {
     var req = new XMLHttpRequest();
