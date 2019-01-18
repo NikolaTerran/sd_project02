@@ -152,6 +152,7 @@ Cleanup of game.html to use..
 boL -- 2019-1-16 11:20PM
 --------------------------------------------------------------
 -fixed up readme, design doc, and documents dir to reflect our API changes
+-Added redirects to log out in profile/game page
 ==============================================================
 
 brianL -- 2019-1-16 12:00PM
@@ -166,14 +167,16 @@ Prettier CSS
 Login check on game
 ==============================================================
 
-timM -- 2019-1-10 12:22 PM
---------------------------------------------------------------
-- Added to app.py and HTML pages to allow users to access the
-game from the profile page.
-- Edited base.html for robustness.
-==============================================================
 
 brianL -- 2019-1-17 4:16PM
 --------------------------------------------------------------
 combat fix
+==============================================================
+
+brianL, TianrunL, boL -- 2019-1-17 7:00PM
+--------------------------------------------------------------
+-fixed up readme
+-Added question solving
+-fixed bug with maps
+-Added map generation
 ==============================================================
